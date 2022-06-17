@@ -58,7 +58,7 @@ except Exception as e:
     print( '<body  style="padding:20px">')
     print( '<h1>An error occured</h1>')
     print( '<p>')
-    print( e)
+    print(e)
     print( '</p>')
     print( '      </body>')
     print( '</html>')

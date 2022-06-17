@@ -227,7 +227,6 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER handle_product_replenishment_trigger
 BEFORE UPDATE OR INSERT ON product
 
-
 /*
     ================================================================
     //                    PARTE  3 (SQL)
@@ -290,6 +289,33 @@ WHERE ean NOT IN e
     # Quais os produtos (ean) que foram repostos sempre pelo mesmo retalhista?
     ------------------------------------------------------------------------------
 */
+
+SELECT ean, COUNT(*) AS num_of_retailers
+FROM (
+    SELECT ean, COUNT(*)
+    FROM replenishment_event e JOIN product p JOIN retailer r
+        BY e.ean = p.ean AND r.tin = e.tin
+    GROUP BY p.ean, r.tin
+)
+GROUP BY ean
+WHERE num_of_retailers = 1
+
+
+/*
+    ================================================================
+    //                    PARTE  4 (VISTAS)
+    ================================================================
+*/
+
+CREATE VIEW sales(ean, cat, year, trimester, day_mounth, day_week, district, council, units)
+AS
+SELECT 
+
+
+/*
+    ESCOLHA DE PONTOS DE RETALHO
+*/
+
 
 
    

@@ -124,24 +124,3 @@ CREATE TABLE replenishment_event
     constraint pk_replenishment_event primary key(ean, nro, serial_number, manufacturer, instant),
     constraint fk_replenishment_event_planogram foreign key(ean, nro, serial_number, manufacturer) references planogram(ean, nro, serial_number, manufacturer),
     constraint fk_responsible_for_retailer foreign key(tin) references retailer(tin));
-
-----------------------------------------
--- Populate Relations 
-----------------------------------------
-
-insert into category values ('category');
-insert into category values ('simple_category_name');
-insert into category values ('super_category_name');
-insert into simple_category values ('simple_category_name');
-insert into super_category values ('super_category_name');
-insert into has_other values ('simple_category_name','super_category_name');
-insert into product values (123,'category', 'descr');
-insert into has_category values (123,'category');
-insert into ivm values (55555,'manufacturer');
-insert into retail_point values ('retail_name','district', 'council');
-insert into instaled_at values (55555,'manufacturer', 'retail_name');
-insert into shelve values ('nro',55555, 'manufacturer', 'category', 50);
-insert into planogram values (123, 'nro', 55555, 'manufacturer', 2, 10, 'location');
-insert into retailer values (123, 'retailer_name');
-insert into responsible_for values ('category', 123, 55555,'manufacturer');
-insert into replenishment_event values (123, 'nro',55555, 'manufacturer', 0, 123, '08-Jan-1999');

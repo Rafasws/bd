@@ -79,7 +79,7 @@ Indique, com a devida justificação, que tipo de índice(s), sobre qual(is) atr
 
 Suponha que não existam índices nas tabelas, além daqueles implícitos ao declarar chaves primárias e estrangeiras.** 
 
-1. - 
+7.1. - 
 
 SELECT DISTINCT R.nome 
 
@@ -87,7 +87,7 @@ FROM retalhista R, responsavel\_por P
 
 WHERE R.tin = P.tin    and P. nome\_cat = 'Frutos' 
 
-2. - 
+7.2. - 
 
 SELECT T.nome, count(T.ean) 
 

@@ -9,7 +9,6 @@
     <table border="2px">
         <thead>
             <tr>
-                <th>TIN</th>
                 <th>Nome</th>
                 <th>Eliminar</th>
             </tr>
@@ -18,10 +17,12 @@
             {% for record in cursor %}
                 <tr>
                     <td>{{ record[0] }}</td>
-                    <td>{{ record[1] }}</td>
-                    <td><a href="balance?account_number={{ record[0] }}">Eliminar</a></td>
+                    <td><a href="">Eliminar</a></td>
                 </tr>
             {% endfor %}
+            <tr>
+                <td><a href="">Adicionar Categoria</a></td>
+            </tr>
         </tbody>
     </table>
 {% else %}

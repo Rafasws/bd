@@ -71,7 +71,7 @@ Usando a vista desenvolvida para a Questão 4, escreva duas consultas SQL que pe
 
 A solução submetida deve usar as instruções ROLLUP, CUBE, GROUPING SETS ou as cláusulas UNION of GROUP BY. 
 
-\7. Índices 
+7. Índices 
 
 Apresente as instruções de criação do(s) índice(s) SQL para melhorar os tempos de consulta para cada um dos casos listados abaixo, explicando quais são as operações que seriam otimizadas e como. 
 

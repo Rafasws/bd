@@ -1,36 +1,77 @@
-CREATE OR REPLACE FUNCTION chk_cat_autoreferenced()
+/*
+    ------------------------------------------------------------------------------
+    # (RI-1) Uma Categoria não pode estar contida em si própria
+    ------------------------------------------------------------------------------
+*/
+CREATE FUNCTION is_autoreferenced()
 RETURNS TRIGGER AS
 $$
     BEGIN
           IF NEW.category = NEW.super_category THEN
-                RAISE EXCEPTION 'Autoreferencing category'; 
+                RAISE EXCEPTION 'Autoreferencing category';
           END IF;
-          RETURN NEW;
+    RETURN NEW;
     END;
 $$ LANGUAGE plpgsql; 
 
-CREATE TRIGGER cat_autoreferenced_trigger
-BEFORE INSERT ON has_other  
-FOR EACH ROW EXECUTE PROCEDURE chk_cat_autoreferenced();
+CREATE TRIGGER is_autoreferenced
+BEFORE UPDATE OR INSERT ON category
+FOR EACH ROW EXECUTE PROCEDURE is_autoreferenced();
 
-CREATE OR REPLACE FUNCTION chk_product_overflow()
+/*
+    ------------------------------------------------------------------------------
+    # (RI-2) O número de unidades repostas num Evento de Reposição não pode 
+    # exceder o número de unidades especificado no Planograma
+    ------------------------------------------------------------------------------
+*/
+CREATE FUNCTION handle_product_overflow_trigger()
 RETURNS TRIGGER AS
 $$
 DECLARE max_units INTEGER;
 BEGIN
         SELECT units INTO max_units
         FROM planogram 
-        WHERE ean=NEW.ean 
-            AND nro=NEW.nro 
-            AND serial_number=NEW.serial_number 
-            AND manufacturer=NEW.manufacturer;
+        WHERE ean=NEW.ean AND nro=NEW.nro AND serial_number=NEW.serial_number AND manufacturer=NEW.manufacturer;
 
-        IF NEW.units > max_units THEN 
-            RAISE EXCEPTION 'Adding more units than specified in planogram'; 
+        IF NEW.units  > max_units THEN 
+            RAISE EXCEPTION 'Adding more units that specified in planogram'; 
         END IF;
-    END;
+END;
 $$ LANGUAGE plpgsql; 
 
-CREATE TRIGGER product_overflow_trigger
-BEFORE INSERT ON replenishment_event  
-FOR EACH ROW EXECUTE PROCEDURE chk_product_overflow();
+CREATE TRIGGER handle_product_overflow_trigger
+BEFORE UPDATE OR INSERT ON shelve
+FOR EACH ROW EXECUTE PROCEDURE handle_product_overflow_trigger();
+
+/*
+    ------------------------------------------------------------------------------
+    # (RI-5) Um Produto só pode ser reposto numa Prateleira que apresente 
+    # (pelo menos) uma das Categorias desse produto
+    ------------------------------------------------------------------------------
+*/
+
+CREATE FUNCTION handle_product_replenishment_trigger()
+RETURNS TRIGGER AS
+$$
+    DECLARE num_of_cat INTEGER;
+    BEGIN
+        SELECT COUNT(*) INTO num_of_cat
+        FROM   (
+            SELECT cat
+                FROM replenishment_event NATURAL JOIN product
+            INTERSECT
+            SELECT cat 
+                FROM planogram NATURAL JOIN product WHERE nro = 1
+        ) as foo;
+        
+
+        IF num_of_cat = 0 THEN 
+            RAISE EXCEPTION 'Adding more units that specified in planogram'; 
+        END IF;
+    END
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER handle_product_replenishment_trigger
+BEFORE UPDATE OR INSERT ON shelve
+FOR EACH ROW EXECUTE PROCEDURE handle_product_replenishment_trigger();

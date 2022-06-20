@@ -1,43 +1,41 @@
 /*
-    ------------------------------------------------------------------------------
+    -----------------------------------------------------------------------------
     # (Qual o nome do retalhista (ou retalhistas) responsáveis pela reposição do maior 
     # número de categorias?
-    ------------------------------------------------------------------------------
+    -----------------------------------------------------------------------------
 */
-SELECT retailer_name, amount 
-FROM 
-    (SELECT r.retailer_name AS retailer_name, COUNT(*) AS amount
-     FROM retailer r JOIN replenishment_event e
-        BY r.tin = e.tin
-     GROUP BY r.retailer_name)
-WHERE amount = (
-    SELECT MAX(amount)
-    FROM 
-    .... INCOMPLETO
-)
+SELECT retailer_name, COUNT(DISTINCT category_name)
+FROM responsible_for NATURAL JOIN retailer
+GROUP BY retailer_name  -- works because reatailer_name is unique on retailer relation
+HAVING COUNT(DISTINCT category_name) >= ALL(
+    SELECT COUNT(DISTINCT category_name)
+    FROM responsible_for 
+    GROUP BY tin
+);
 
 
 /*
-    ------------------------------------------------------------------------------
+    -----------------------------------------------------------------------------
     # Qual o nome do ou dos retalhistas que são responsáveis por todas as 
     # categorias simples?
-    ------------------------------------------------------------------------------
+    -----------------------------------------------------------------------------
 */
+SELECT DISTINCT retailer_name
+FROM responsible_for R NATURAL JOIN retailer 
+WHERE NOT EXISTS(
+    SELECT simple_name 
+    FROM simple_category
+    EXCEPT
+    SELECT category_name
+    FROM responsible_for RF
+    WHERE RF.tin = R.tin
+);
 
-SELECT retailer_name 
-    (
-    SELECT retailer_name, COUNT(*) as num_of_categories
-    FROM responsible_for rf JOIN retailer r JOIN simple_category c
-        BY rf.tin = r.tin AND rf.category_name = c.category_name
-    GROUP BY retailer_name
-    WHERE num_of_categories = (
-        SELECT MAX(num_of_categories)
-        .... INCOMPLETO        
-    )
+
 /*
-    ------------------------------------------------------------------------------
+    -----------------------------------------------------------------------------
     # Quais os produtos (ean) que nunca foram repostos?
-    ------------------------------------------------------------------------------
+    -----------------------------------------------------------------------------
 */
 SELECT ean 
 FROM 
@@ -49,9 +47,9 @@ WHERE ean NOT IN e
 
 
 /*
-    ------------------------------------------------------------------------------
+    -----------------------------------------------------------------------------
     # Quais os produtos (ean) que foram repostos sempre pelo mesmo retalhista?
-    ------------------------------------------------------------------------------
+    -----------------------------------------------------------------------------
 */
 
 SELECT ean, COUNT(*) AS num_of_retailers

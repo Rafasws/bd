@@ -59,7 +59,7 @@ def eleminar_categoria():
         dbConn = psycopg2.connect(DB_CONNECTION_STRING)
         cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         categoria = request.form["categoria"]
-        query = "DELETE FROM category WHERE category name = %s;"
+        query = "DELETE FROM category WHERE category_name = %s;"
         data = (categoria,)
         cursor.execute(query, data)
         return query % categoria

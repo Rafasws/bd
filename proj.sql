@@ -5,7 +5,7 @@ drop table has_other cascade;
 drop table product cascade;
 drop table has_category cascade;
 drop table ivm cascade;
-drop table instaled_at cascade;
+drop table installed_at cascade;
 drop table retail_point cascade;
 drop table shelve cascade;
 drop table planogram cascade;
@@ -18,28 +18,28 @@ drop table replenishment_event cascade;
 ----------------------------------------
 
 CREATE TABLE category
-    (category_name 	varchar(80)	not null unique,
+    (category_name 	varchar(80),
     constraint pk_category primary key(category_name));
 
 CREATE TABLE simple_category
-    (simple_name 	varchar(80)	not null unique,
+    (simple_name 	varchar(80),
     constraint pk_simple_category primary key(simple_name),
     constraint fk_simple_category foreign key(simple_name) references category(category_name));
 
 CREATE TABLE super_category
-    (super_name 	varchar(80)	not null unique,
+    (super_name 	varchar(80),
     constraint pk_super_category primary key(super_name),
     constraint fk_super_category foreign key(super_name) references category(category_name));
 
 CREATE TABLE has_other
-    (category 	varchar(80)	not null unique,
+    (category 	varchar(80),
      super_category 	varchar(80)	not null,
      constraint pk_has_other primary key(category),
      constraint fk_has_other_category foreign key(category) references category(category_name),
      constraint fk_has_other_super_category foreign key(super_category) references super_category(super_name));
 
 CREATE TABLE product
-    (ean integer not null unique,
+    (ean integer,
      cat varchar(80) not null,
      descr varchar(500) not null,
      constraint pk_product_ean primary key(ean),
@@ -47,8 +47,9 @@ CREATE TABLE product
 
 
 CREATE TABLE has_category
-    (ean integer not null unique,
-     cat varchar(80) not null unique,
+    (ean integer not null,
+     cat varchar(80) not null,
+     constraint pk_has_category primary key(ean, cat),
      constraint fk_has_category_ean foreign key(ean) references product(ean),
      constraint fk_has_category_cat foreign key(cat) references category(category_name));
 
@@ -60,19 +61,19 @@ CREATE TABLE ivm
 
 
 CREATE TABLE retail_point
-    (retail_name 	varchar(80) not null unique,
+    (retail_name 	varchar(80),
      district       varchar(80) not null,
      council        varchar(80) not null,
      constraint pk_retail_point primary key(retail_name));
 
 
-CREATE TABLE instaled_at
+CREATE TABLE installed_at
     (serial_number 	integer not null,
      manufacturer   varchar(80) not null,
      retail_point   varchar(80) not null,
-     constraint pk_instaled_at primary key(serial_number, manufacturer),
-     constraint fk_instaled_at_serial_number foreign key(serial_number, manufacturer) references ivm(serial_number, manufacturer),
-     constraint fk_instaled_at_retail_point foreign key(retail_point) references retail_point(retail_name));
+     constraint pk_installed_at primary key(serial_number, manufacturer),
+     constraint fk_installed_at_serial_number foreign key(serial_number, manufacturer) references ivm(serial_number, manufacturer),
+     constraint fk_installed_at_retail_point foreign key(retail_point) references retail_point(retail_name));
 
 CREATE TABLE shelve
     (nro varchar(80) not null,
@@ -98,7 +99,7 @@ CREATE TABLE planogram
     constraint fk_planogram_shelve foreign key(nro, serial_number, manufacturer) references shelve(nro, serial_number, manufacturer));
 
 CREATE TABLE retailer
-    (tin integer not null unique,
+    (tin integer,
     retailer_name varchar(80) not null unique,
     constraint pk_retailer primary key(tin));
 

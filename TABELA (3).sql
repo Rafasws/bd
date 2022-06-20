@@ -53,13 +53,13 @@ CREATE TABLE retail_point
      constraint pk_retail_point primary key(retail_name));
 
 
-CREATE TABLE instaled_at
+CREATE TABLE installed_at
     (serial_number 	varchar(80) not null unique,
      manufacturer   varchar(80) not null,
      retail_point   varchar(80) not null,
-     constraint pk_instaled_at primary key(serial_number, manufacturer),
-     constraint fk_instaled_at_serial_number foreign key(serial_number, manufacturer) references ivm(serial_number, manufacturer),
-     constraint fk_instaled_at_retail_point foreign key(retail_point) references retail_point(retail_name),);
+     constraint pk_installed_at primary key(serial_number, manufacturer),
+     constraint fk_installed_at_serial_number foreign key(serial_number, manufacturer) references ivm(serial_number, manufacturer),
+     constraint fk_installed_at_retail_point foreign key(retail_point) references retail_point(retail_name),);
 
 CREATE TABLE shelve
     (nro varchar(80) not null,
@@ -123,7 +123,7 @@ drop table has_other cascade;
 drop table product cascade;
 drop table ivm cascade;
 drop table retail_point cascade;
-drop table instaled_at cascade;
+drop table installed_at cascade;
 drop table has_category cascade;
 drop table shelve cascade;
 drop table planogram cascade;
@@ -139,7 +139,7 @@ insert into product values (123,'category', 'descr');
 insert into has_category values (123,'category');
 insert into ivm values (123,'manufacturer');
 insert into retail_point values ('retail_name','district', 'council');
-insert into instaled_at values ('serial_number','manufacturer', 'retail_name');
+insert into installed_at values ('serial_number','manufacturer', 'retail_name');
 insert into shelve values ('nro',123, 'manufacturer', 'retail_name');
 insert into planogram values (123, 'nro' 'manufacturer', 2, 10, 'location');
 insert into retailer values (123, 'retailer_name');

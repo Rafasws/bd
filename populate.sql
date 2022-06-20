@@ -51,8 +51,8 @@ insert into ivm values (12345,'ROLLS-ROYCE');
 insert into retail_point values ('GALP','Lisboa', 'Arieiro');
 insert into retail_point values ('BP','Porto', 'Porto');
 
-insert into instaled_at values (55555,'ROLLS-ROYCE', 'GALP');
-insert into instaled_at values (12345,'ROLLS-ROYCE', 'BP');
+insert into installed_at values (55555,'ROLLS-ROYCE', 'GALP');
+insert into installed_at values (12345,'ROLLS-ROYCE', 'BP');
 
 insert into shelve values (1, 55555, 'ROLLS-ROYCE', 'Fruta', 50);
 insert into shelve values (2, 55555, 'ROLLS-ROYCE', 'Sandes', 50);

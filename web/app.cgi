@@ -44,11 +44,38 @@ def lista_categorias_edit():
         cursor.close()
         dbConn.close()
 
+@app.route("/Eleminar_categoria")
+def nova_categoria():
+    try:
+        return render_template("eleminar_categoria.html", params=request.args)
+    except Exception as e:
+        return str(e)
+
+@app.route("/delete", methods=["POST"])
+def eleminar_categoria():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        categoria = request.form["categoria"]
+        query = "DELETE FROM category WHERE category name = %s;"
+        data = (categoria,)
+        cursor.execute(query, data)
+        return query % categoria
+    except Exception as e:
+        return str(e)
+    finally:
+        dbConn.commit()
+        cursor.close()
+        dbConn.close()
+
+
 
 @app.route("/Inserir_categoria")
 def nova_categoria():
     try:
-        return render_template("inserir_categoria.html", params=request.args)
+        return render_template("inserir_categoria.html")
     except Exception as e:
         return str(e)
 

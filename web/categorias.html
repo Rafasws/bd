@@ -17,7 +17,7 @@
             {% for record in cursor %}
                 <tr>
                     <td>{{ record[0] }}</td>
-                    <td><a href="">Eliminar</a></td>
+                    <td><a href="Eleminar_categoria?categoria={{ record[0] }}">Eliminar</a></td>
                 </tr>
             {% endfor %}
             <tr>

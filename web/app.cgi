@@ -45,7 +45,7 @@ def lista_categorias_edit():
         dbConn.close()
 
 @app.route("/Eleminar_categoria")
-def nova_categoria():
+def render_eleminar_categoria():
     try:
         return render_template("eleminar_categoria.html", params=request.args)
     except Exception as e:
@@ -75,7 +75,7 @@ def eleminar_categoria():
 @app.route("/Inserir_categoria")
 def nova_categoria():
     try:
-        return render_template("inserir_categoria.html")
+        return render_template("inserir_categoria.html", params=request.args)
     except Exception as e:
         return str(e)
 

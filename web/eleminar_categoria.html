@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>Change balance - Flask</title>
+    <meta charset="utf-8">
+    <title>Change balance - Flask</title>
 </head>
 <body>
-<h3>Eleminar Categoria{{ params.get("categoria") }}</h3>
-<form action="delete" method="post">
-<p><input type="hidden" name="account_number" value="{{
-params.get('account_number') }}"/></p>
-<p><input type="submit" value="Confirmar"/></p>
-</form>
+    <h3>Eleminar Categoria{{ params.get("categoria") }}</h3>
+    <form action="delete" method="post">
+        <p><input type="hidden" name="categoria" value="{{params.get('categoria') }}"/></p>
+        <p><input type="submit" value="Confirmar"/></p>
+    </form>
 </body>
 </html>

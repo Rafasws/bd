@@ -53,7 +53,7 @@ def nova_categoria():
         return str(e)
 
 
-@app.route("/insert", methods=["INSERT"])
+@app.route("/insert", methods=["POST"])
 def inseir_categoria():
     dbConn = None
     cursor = None

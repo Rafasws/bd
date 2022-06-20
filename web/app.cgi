@@ -44,15 +44,15 @@ def lista_categorias_edit():
         cursor.close()
         dbConn.close()
 
-@app.route("/Eleminar_categoria")
-def render_eleminar_categoria():
+@app.route("/Eliminar_categoria")
+def render_eliminar_categoria():
     try:
-        return render_template("eleminar_categoria.html", params=request.args)
+        return render_template("eliminar_categoria.html", params=request.args)
     except Exception as e:
         return str(e)
 
 @app.route("/delete", methods=["POST"])
-def eleminar_categoria():
+def eliminar_categoria():
     dbConn = None
     cursor = None
     try:

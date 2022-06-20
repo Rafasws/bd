@@ -38,12 +38,10 @@ WHERE NOT EXISTS(
     -----------------------------------------------------------------------------
 */
 SELECT ean 
-FROM 
-    (
-        SELECT ean AS e
-        FROM replenishment_event
-    )
-WHERE ean NOT IN e
+FROM product
+EXCEPT
+SELECT ean 
+FROM replenishment_event;
 
 
 /*
@@ -51,13 +49,7 @@ WHERE ean NOT IN e
     # Quais os produtos (ean) que foram repostos sempre pelo mesmo retalhista?
     -----------------------------------------------------------------------------
 */
-
-SELECT ean, COUNT(*) AS num_of_retailers
-FROM (
-    SELECT ean, COUNT(*)
-    FROM replenishment_event e JOIN product p JOIN retailer r
-        BY e.ean = p.ean AND r.tin = e.tin
-    GROUP BY p.ean, r.tin
-)
+SELECT ean 
+FROM replenishment_event
 GROUP BY ean
-WHERE num_of_retailers = 1
+HAVING COUNT(DISTINCT tin) = 1;

@@ -39,7 +39,7 @@ CREATE TABLE has_other
      constraint fk_has_other_super_category foreign key(super_category) references super_category(super_name));
 
 CREATE TABLE product
-    (ean 	integer not null unique,
+    (ean integer not null unique,
      cat varchar(80) not null,
      descr varchar(500) not null,
      constraint pk_product_ean primary key(ean),

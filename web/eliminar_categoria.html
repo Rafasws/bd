@@ -6,7 +6,7 @@
 </head>
 <body>
     <h3>Eliminar Categoria {{ params.get("categoria") }}</h3>
-    <form action="delete" method="post">
+    <form action="delete_categoria" method="post">
         <p><input type="hidden" name="categoria" value="{{params.get('categoria') }}"/></p>
         <p><input type="submit" value="Confirmar"/></p>
     </form>

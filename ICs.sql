@@ -56,10 +56,8 @@ FOR EACH ROW EXECUTE PROCEDURE handle_product_overflow_trigger();
 CREATE FUNCTION handle_product_replenishment_trigger()
 RETURNS TRIGGER AS
 $$
-    DECLARE num_of_cat INTEGER;
     BEGIN
-        SELECT COUNT(*) INTO num_of_cat
-        FROM  (
+        IF NOT EXISTS  (
             SELECT cat
             FROM has_category
             WHERE ean=NEW.ean
@@ -69,10 +67,10 @@ $$
             WHERE nro=NEW.nro 
                 AND serial_number=NEW.serial_number
                 AND manufacturer=NEW.manufacturer
-        ) as foo;
+        );
         
 
-        IF num_of_cat = 0 THEN 
+        THEN 
             RAISE EXCEPTION 'Adding more units than specified in planogram'; 
         END IF;
     END

@@ -198,9 +198,10 @@ def listar_ER():
     try:
         dbConn = psycopg2.connect(DB_CONNECTION_STRING)
         cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        ivm = request.form["ivm"].split(" ")
-        manuf = ivm[1]
-        serial = ivm[0]
+        ivm = request.form["ivm"]
+        ivm_list = ivm.split(" ")
+        manuf = ivm_list[1]
+        serial = ivm_list[0]
         query = """SELECT cat, SUM(units)
                     FROM replenishment_event NATURAL JOIN has_category
                     WHERE serial_number = %s AND manufacturer=%s
@@ -208,7 +209,7 @@ def listar_ER():
                 """
         data = (serial, manuf)
         cursor.execute(query, data)
-        return render_template("lista_er",cursor=cursor)
+        return render_template("lista_er",cursor=cursor, ivm=ivm)
     except Exception as e:
         return str(e)
     finally:

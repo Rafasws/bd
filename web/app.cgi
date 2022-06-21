@@ -135,11 +135,11 @@ def eliminar_retalhista():
         query = """ BEGIN TRANSACTION;
                     DELETE FROM responsible_for WHERE tin=%s;
                     DELETE FROM replenishment_event WHERE tin=%s;
-                    DELETE FROM retailer WHERE tin = %s;
+                    DELETE FROM retailer WHERE tin=%s;
                     COMMIT;"""
         data = (retalhista, retalhista, retalhista)
         cursor.execute(query, data)
-        return query % retalhista
+        return query % (retalhista, retalhista, retalhista)
     except Exception as e:
         return str(e)
     finally:

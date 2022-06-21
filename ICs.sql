@@ -7,7 +7,7 @@ CREATE FUNCTION is_autoreferenced()
 RETURNS TRIGGER AS
 $$
     BEGIN
-          IF NEW.category = NEW.super_category THEN
+          IF NEW.category=NEW.super_category THEN
                 RAISE EXCEPTION 'Autoreferencing category';
           END IF;
     RETURN NEW;
@@ -31,7 +31,10 @@ DECLARE max_units INTEGER;
 BEGIN
         SELECT units INTO max_units
         FROM planogram 
-        WHERE ean=NEW.ean AND nro=NEW.nro AND serial_number=NEW.serial_number AND manufacturer=NEW.manufacturer;
+        WHERE ean=NEW.ean
+             AND nro=NEW.nro 
+             AND serial_number=NEW.serial_number 
+             AND manufacturer=NEW.manufacturer;
 
         IF NEW.units  > max_units THEN 
             RAISE EXCEPTION 'Adding more units that specified in planogram'; 
@@ -56,22 +59,26 @@ $$
     DECLARE num_of_cat INTEGER;
     BEGIN
         SELECT COUNT(*) INTO num_of_cat
-        FROM   (
+        FROM  (
             SELECT cat
-                FROM replenishment_event NATURAL JOIN product
+            FROM has_category
+            WHERE ean=NEW.ean
             INTERSECT
-            SELECT cat 
-                FROM planogram NATURAL JOIN product WHERE nro = 1
+            SELECT category_name 
+            FROM shelve 
+            WHERE nro=NEW.nro 
+                AND serial_number=NEW.serial_number
+                AND manufacturer=NEW.manufacturer
         ) as foo;
         
 
         IF num_of_cat = 0 THEN 
-            RAISE EXCEPTION 'Adding more units that specified in planogram'; 
+            RAISE EXCEPTION 'Adding more units than specified in planogram'; 
         END IF;
     END
 $$ LANGUAGE plpgsql;
 
 
 CREATE TRIGGER handle_product_replenishment_trigger
-BEFORE UPDATE OR INSERT ON shelve
+BEFORE UPDATE OR INSERT ON planogram
 FOR EACH ROW EXECUTE PROCEDURE handle_product_replenishment_trigger();

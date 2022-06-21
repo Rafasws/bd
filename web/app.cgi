@@ -208,7 +208,7 @@ def listar_ER():
                 """
         data = (serial, manuf)
         cursor.execute(query, data)
-        return query % data
+        return render_template("lista_er",cursor=cursor)
     except Exception as e:
         return str(e)
     finally:

@@ -213,31 +213,29 @@ insert into replenishment_event values (12, 1 ,55555, 'ROLLS-ROYCE', 10, 1, '08-
     -----------------------------------------------------------------------------
 */
 
+DROP FUNCTION trigger_delete_from_category();
+
 CREATE FUNCTION trigger_delete_from_category()
 RETURNS TRIGGER AS
 $$
     BEGIN
-          SELECT * INTO sub_cats
-          FROM has_other
-          WHERE super_category=OLD.cat;
-
           DELETE FROM has_other
           WHERE category IN (
             SELECT * 
             FROM has_other
-            WHERE super_category=OLD.cat);
+            WHERE super_category=OLD.category_name);
           
           DELETE FROM category
           WHERE category_name IN (
             SELECT * 
             FROM has_other
-            WHERE super_category=OLD.cat);
+            WHERE super_category=OLD.category_name);
 
 
     RETURN NEW; 
     END;
 $$ LANGUAGE plpgsql; 
 
-CREATE TRIGGER trigger_delete_from_category
+CREATE OR REPLACE TRIGGER trigger_delete_from_category
 BEFORE DELETE ON category
 FOR EACH ROW EXECUTE PROCEDURE trigger_delete_from_category();

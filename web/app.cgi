@@ -91,7 +91,7 @@ def inseir_categoria():
         query = "insert into category values (%s);"
         data = (categoria,)
         cursor.execute(query, data)
-        return query % categoria
+        return lista_categorias_edit()
     except Exception as e:
         return str(e)
     finally:

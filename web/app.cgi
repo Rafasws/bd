@@ -125,13 +125,13 @@ def render_eliminar_retalhsita():
         return str(e)
 
 @app.route("/delete_retalhista", methods=["POST"])
-def eliminar_categoria():
+def eliminar_retalhista():
     dbConn = None
     cursor = None
     try:
         dbConn = psycopg2.connect(DB_CONNECTION_STRING)
         cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        retalhista = request.form["categoria"]
+        retalhista = request.form["retalhista"]
         query = "DELETE FROM retailher WHERE tin = %s;"
         data = (retalhista,)
         cursor.execute(query, data)

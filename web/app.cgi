@@ -51,7 +51,7 @@ def render_eliminar_categoria():
     except Exception as e:
         return str(e)
 
-@app.route("/delete", methods=["POST"])
+@app.route("/delete_categoria", methods=["POST"])
 def eliminar_categoria():
     dbConn = None
     cursor = None
@@ -98,6 +98,51 @@ def inseir_categoria():
         dbConn.commit()
         cursor.close()
         dbConn.close()
+
+
+@app.route("/retalhistas")
+def lista_retalhistas_edit():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        query = "SELECT * FROM retailer;"
+        cursor.execute(query)
+        return render_template("retalhistas.html", cursor=cursor)
+    except Exception as e:
+        return str(e)
+    finally:
+        cursor.close()
+        dbConn.close()
+
+
+@app.route("/Eliminar_retalhista")
+def render_eliminar_retalhsita():
+    try:
+        return render_template("eliminar_retalhista.html", params=request.args)
+    except Exception as e:
+        return str(e)
+
+@app.route("/delete_retalhista", methods=["POST"])
+def eliminar_categoria():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        retalhista = request.form["categoria"]
+        query = "DELETE FROM retailher WHERE tin = %s;"
+        data = (retalhista,)
+        cursor.execute(query, data)
+        return query % retalhista
+    except Exception as e:
+        return str(e)
+    finally:
+        dbConn.commit()
+        cursor.close()
+        dbConn.close()
+
 
 
 CGIHandler().run(app)

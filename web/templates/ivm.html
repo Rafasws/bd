@@ -2,12 +2,12 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Change balance - Flask</title>
+    <title>Listar eventos de reposição</title>
 </head>
 <body>
     {% if cursor %}
-    <h3>Eliminar Categoria {{ params.get("categoria") }}</h3>
-    <form action="delete_categoria" method="post">
+    <h3>Listar Eventos de Reposição</h3>
+    <form action="selecionar_ivm" method="post">
         <select name="ivm" id="ivm">
             {% for record in cursor %}
                 <option value="{{ record[0] }} {{ record[1] }}">{{ record[0] }} {{ record[1] }}</option>

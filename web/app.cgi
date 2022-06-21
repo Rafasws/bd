@@ -164,7 +164,7 @@ def inseir_retalhista():
         cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         tin = request.form["tin"]
         nome =  request.form["nome"]
-        query = "insert into retailer values (%d, %s);"
+        query = "insert into retailer values (%s, %s);"
         data = (tin, nome)
         cursor.execute(query, data)
         return query % data
@@ -175,5 +175,45 @@ def inseir_retalhista():
         cursor.close()
         dbConn.close()
 
+@app.route("/escolhe_ivm")
+def escolhe_ivm():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        query = "SELECT * FROM ivm;"
+        cursor.execute(query)
+        return render_template("ivm.html", cursor=cursor, params=request.args)
+    except Exception as e:
+        return str(e)
+    finally:
+        cursor.close()
+        dbConn.close()
+
+@app.route("/selecionar_ivm", methods=["POST"])
+def listar_ER():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        ivm = request.form["ivm"].split(" ")
+        manuf = ivm[1]
+        serial = ivm[0]
+        query = """SELECT cat, SUM(units)
+                    FROM replenishment_event NATURAL JOIN has_category
+                    WHERE serial_number = %s AND manufacturer=%s
+                    GROUP BY cat;              
+                """
+        data = (serial, manuf)
+        cursor.execute(query, data)
+        return query % data
+    except Exception as e:
+        return str(e)
+    finally:
+        dbConn.commit()
+        cursor.close()
+        dbConn.close()
 
 CGIHandler().run(app)

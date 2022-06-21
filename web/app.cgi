@@ -147,6 +147,33 @@ def eliminar_retalhista():
         cursor.close()
         dbConn.close()
 
+@app.route("/Inserir_retalhista")
+def nova_categoria():
+    try:
+        return render_template("inserir_retalhista.html", params=request.args)
+    except Exception as e:
+        return str(e)
+
+
+@app.route("/insert_retalhista", methods=["POST"])
+def inseir_retalhista():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        tin = request.form["tin"]
+        nome =  request.form["nome"]
+        query = "insert into retailer values (%d, %s);"
+        data = (tin, nome)
+        cursor.execute(query, data)
+        return query % data
+    except Exception as e:
+        return str(e)
+    finally:
+        dbConn.commit()
+        cursor.close()
+        dbConn.close()
 
 
 CGIHandler().run(app)

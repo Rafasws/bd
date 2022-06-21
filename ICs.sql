@@ -3,7 +3,7 @@
     # (RI-1) Uma Categoria não pode estar contida em si própria
     ------------------------------------------------------------------------------
 */
-CREATE FUNCTION is_autoreferenced()
+CREATE OR REPLACE FUNCTION is_autoreferenced()
 RETURNS TRIGGER AS
 $$
     BEGIN
@@ -24,7 +24,7 @@ FOR EACH ROW EXECUTE PROCEDURE is_autoreferenced();
     # exceder o número de unidades especificado no Planograma
     ------------------------------------------------------------------------------
 */
-CREATE FUNCTION handle_product_overflow_trigger()
+CREATE OR REPLACE FUNCTION handle_product_overflow_trigger()
 RETURNS TRIGGER AS
 $$
 DECLARE max_units INTEGER;
@@ -53,7 +53,7 @@ FOR EACH ROW EXECUTE PROCEDURE handle_product_overflow_trigger();
     ------------------------------------------------------------------------------
 */
 
-CREATE FUNCTION handle_product_replenishment_trigger()
+CREATE OR REPLACE FUNCTION handle_product_replenishment_trigger()
 RETURNS TRIGGER AS
 $$
     BEGIN
@@ -67,8 +67,7 @@ $$
             WHERE nro=NEW.nro 
                 AND serial_number=NEW.serial_number
                 AND manufacturer=NEW.manufacturer
-        );
-        
+        )
 
         THEN 
             RAISE EXCEPTION 'Adding more units than specified in planogram'; 

@@ -148,7 +148,7 @@ def eliminar_retalhista():
         dbConn.close()
 
 @app.route("/Inserir_retalhista")
-def nova_categoria():
+def novo_retalhista():
     try:
         return render_template("inserir_retalhista.html", params=request.args)
     except Exception as e:

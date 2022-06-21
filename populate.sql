@@ -222,13 +222,17 @@ $$
           FROM has_other
           WHERE super_category=OLD.cat;
 
-          DELETE FROM category
-          WHERE category_name IN sub_cats;
-
           DELETE FROM has_other
           WHERE category IN sub_cats;
+          
+          DELETE FROM category
+          WHERE category_name IN sub_cats;
 
 
     RETURN NEW; 
     END;
 $$ LANGUAGE plpgsql; 
+
+CREATE TRIGGER trigger_delete_from_category
+BEFORE DELETE ON category
+FOR EACH ROW EXECUTE PROCEDURE htrigger_delete_from_category();

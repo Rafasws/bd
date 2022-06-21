@@ -132,8 +132,12 @@ def eliminar_retalhista():
         dbConn = psycopg2.connect(DB_CONNECTION_STRING)
         cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         retalhista = request.form["retalhista"]
-        query = "DELETE FROM retailher WHERE tin = %s;"
-        data = (retalhista,)
+        query = """ BEGIN TRANSACTION;
+                    DELETE FROM responsible_for WHERE tin=%s;
+                    DELETE FROM replenishment_event WHERE tin=%s;
+                    DELETE FROM retailer WHERE tin = %s;
+                    COMMIT;"""
+        data = (retalhista, retalhista, retalhista)
         cursor.execute(query, data)
         return query % retalhista
     except Exception as e:

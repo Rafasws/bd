@@ -237,21 +237,3 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trigger_delete_from_category
 BEFORE DELETE ON category
 FOR EACH ROW EXECUTE PROCEDURE trigger_delete_from_category();
-
-CREATE OR REPLACE FUNCTION trigger_delete_from_retailer()
-RETURNS TRIGGER AS
-$$
-    BEGIN
-          DELETE FROM responsible_for
-          WHERE tin=OLD.tin;
-          
-          DELETE FROM replenishment_event
-          WHERE tin=OLD.tin;
-
-    RETURN OLD; 
-    END;
-$$ LANGUAGE plpgsql; 
-
-CREATE TRIGGER trigger_delete_from_retailer
-BEFORE DELETE ON retailer
-FOR EACH ROW EXECUTE PROCEDURE trigger_delete_from_retailer();

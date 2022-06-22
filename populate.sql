@@ -290,10 +290,10 @@ $$
         WHERE cat = OLD.category_name;
         
         DELETE FROM super_category
-        WHERE category = OLD.category_name;
+        WHERE super_name = OLD.category_name;
 
         DELETE FROM simple_category
-        WHERE category_name = OLD.category_name;
+        WHERE simple_name = OLD.category_name;
           
         DELETE FROM category
         WHERE category_name = ANY(sub_cats);

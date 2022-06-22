@@ -279,8 +279,7 @@ $$
         WHERE category = OLD.category_name;
 
         DELETE FROM simple_category
-        WHERE category = ANY(sub_cats)
-        OR category_name = OLD.category_name;
+        WHERE category_name = OLD.category_name;
           
         DELETE FROM category
         WHERE category_name = ANY(sub_cats);

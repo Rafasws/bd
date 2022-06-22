@@ -215,21 +215,24 @@ insert into replenishment_event values (12, 1 ,55555, 'ROLLS-ROYCE', 10, 1, '08-
 CREATE OR REPLACE FUNCTION trigger_delete_from_category()
 RETURNS TRIGGER AS
 $$
-    --DECLARE sub_cats AS varchar(80)
+    DECLARE sub_cats varchar(80)[] = (
+            SELECT array_agg(category) 
+            FROM has_other
+            WHERE super_category = OLD.category_name);
     BEGIN
+        
+        DELETE FROM super_category
+        WHERE category = ANY(sub_cats);
+
+        DELETE FROM simple_category
+        WHERE category = ANY(sub_cats);
+
+        DELETE FROM has_other
+        WHERE category = ANY(sub_cats);
           
-          DELETE FROM category
-          WHERE category_name IN (
-            SELECT category 
-            FROM has_other
-            WHERE super_category=OLD.category_name);
-          
-          DELETE FROM has_other
-          WHERE category IN (
-            SELECT category 
-            FROM has_other
-            WHERE super_category=OLD.category_name);
-          
+        DELETE FROM category
+        WHERE category_name = ANY(sub_cats);
+
     RETURN OLD; 
     END;
 $$ LANGUAGE plpgsql; 
@@ -237,3 +240,23 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trigger_delete_from_category
 BEFORE DELETE ON category
 FOR EACH ROW EXECUTE PROCEDURE trigger_delete_from_category();
+
+
+-- TESTS: delete this before delivery
+
+/*  DO $$
+DECLARE total varchar(80)[] = (SELECT array_agg(account_number) FROM account WHERE balance<'600');
+DECLARE other varchar(80)[6];
+BEGIN
+    select array_agg(account_number) from account INTO other where account_number = ANY(total);
+    RAISE INFO 'Account %', other;
+END$$; */
+/*  DO $$
+DECLARE other varchar(80)[6];
+BEGIN
+    with total as(
+        select account_number FROM account WHERE balance<'600'
+    )
+    select array_agg(account_number) from account INTO other where account_number IN (SELECT * FROM total);
+    RAISE INFO 'Account %', other;
+END$$; */

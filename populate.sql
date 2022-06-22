@@ -194,6 +194,9 @@ insert into ivm values (33333, 'ROLLS-ROYCE');
 insert into ivm values (44444, 'ROLLS-ROYCE');
 insert into ivm values (44444, 'BENTLEY');
 insert into ivm values (55555, 'BENTLEY');
+insert into ivm values (66666, 'BENTLEY');
+insert into ivm values (77777, 'BENTLEY');
+insert into ivm values (88888, 'BENTLEY');
 
 insert into retail_point values ('GALP', 'Lisboa', 'Arieiro');
 insert into retail_point values ('BP', 'Porto', 'Baião');
@@ -204,6 +207,8 @@ insert into installed_at values (33333, 'ROLLS-ROYCE', 'GALP');
 insert into installed_at values (44444, 'ROLLS-ROYCE', 'BP');
 insert into installed_at values (44444, 'BENTLEY', 'BP');
 insert into installed_at values (55555, 'BENTLEY', 'BP');
+insert into installed_at values (66666, 'BENTLEY', 'BP');
+insert into installed_at values (77777, 'BENTLEY', 'BP');
 
 insert into shelve values (1, 44444, 'ROLLS-ROYCE', 'Fruta', 50);
 insert into shelve values (2, 44444, 'ROLLS-ROYCE', 'Sandes Pão-forma', 50);
@@ -223,8 +228,10 @@ insert into responsible_for values ('Sandes Baguete', 1, 11111, 'MCLAREN');
 insert into responsible_for values ('Sandes Pão-forma', 1, 22222, 'ROLLS-ROYCE');
 insert into responsible_for values ('Sumos', 1, 33333,'ROLLS-ROYCE');
 insert into responsible_for values ('Batidos', 1, 44444,'ROLLS-ROYCE');
-insert into responsible_for values ('Refrigerantes sem gás', 2, 44444,'BENTLEY');
-insert into responsible_for values ('Refrigerantes com gás', 2, 55555,'BENTLEY');
+insert into responsible_for values ('Refrigerantes sem gás', 1, 44444,'BENTLEY');
+insert into responsible_for values ('Refrigerantes com gás', 1, 55555,'BENTLEY');
+insert into responsible_for values ('Fruta', 1, 66666,'BENTLEY');
+insert into responsible_for values ('Refrigerantes sem gás', 2, 77777,'BENTLEY');
 
 insert into replenishment_event values (13, 1, 44444, 'ROLLS-ROYCE', 10, 1, '08-Jan-1999');
 insert into replenishment_event values (1, 2, 44444, 'ROLLS-ROYCE', 9, 1, '08-Jan-1999');

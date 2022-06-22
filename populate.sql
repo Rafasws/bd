@@ -1,17 +1,17 @@
-drop table category cascade;
-drop table simple_category cascade;
-drop table super_category cascade;
-drop table has_other cascade;
-drop table product cascade;
-drop table has_category cascade;
-drop table ivm cascade;
-drop table installed_at cascade;
-drop table retail_point cascade;
-drop table shelve cascade;
-drop table planogram cascade;
-drop table retailer cascade;
-drop table responsible_for cascade;
-drop table replenishment_event cascade;
+DROP TABLE category cascade;
+DROP TABLE simple_category cascade;
+DROP TABLE super_category cascade;
+DROP TABLE has_other cascade;
+DROP TABLE product cascade;
+DROP TABLE has_category cascade;
+DROP TABLE ivm cascade;
+DROP TABLE installed_at cascade;
+DROP TABLE retail_point cascade;
+DROP TABLE shelve cascade;
+DROP TABLE planogram cascade;
+DROP TABLE retailer cascade;
+DROP TABLE responsible_for cascade;
+DROP TABLE replenishment_event cascade;
 
 ----------------------------------------
 -- Table Creation
@@ -127,120 +127,120 @@ CREATE TABLE replenishment_event
     constraint fk_responsible_for_retailer foreign key(tin) references retailer(tin));
 
 
-insert into category values ('Sandes');
-insert into category values ('Sandes Baguete');
-insert into category values ('Sandes Pão-forma');
-insert into category values ('Bebidas');
-insert into category values ('Sumos');
-insert into category values ('Batidos');
-insert into category values ('Refrigerantes');
-insert into category values ('Refrigerantes sem gás');
-insert into category values ('Refrigerantes com gás');
-insert into category values ('Fruta');
+INSERT INTO category VALUES ('Sandes');
+INSERT INTO category VALUES ('Sandes Baguete');
+INSERT INTO category VALUES ('Sandes Pão-forma');
+INSERT INTO category VALUES ('Bebidas');
+INSERT INTO category VALUES ('Sumos');
+INSERT INTO category VALUES ('Batidos');
+INSERT INTO category VALUES ('Refrigerantes');
+INSERT INTO category VALUES ('Refrigerantes sem gás');
+INSERT INTO category VALUES ('Refrigerantes com gás');
+INSERT INTO category VALUES ('Fruta');
 
-insert into simple_category values ('Sandes Baguete');
-insert into simple_category values ('Sandes Pão-forma');
-insert into simple_category values ('Sumos');
-insert into simple_category values ('Batidos');
-insert into simple_category values ('Refrigerantes sem gás');
-insert into simple_category values ('Refrigerantes com gás');
-insert into simple_category values ('Fruta');
+INSERT INTO simple_category VALUES ('Sandes Baguete');
+INSERT INTO simple_category VALUES ('Sandes Pão-forma');
+INSERT INTO simple_category VALUES ('Sumos');
+INSERT INTO simple_category VALUES ('Batidos');
+INSERT INTO simple_category VALUES ('Refrigerantes sem gás');
+INSERT INTO simple_category VALUES ('Refrigerantes com gás');
+INSERT INTO simple_category VALUES ('Fruta');
 
-insert into super_category values ('Sandes');
-insert into super_category values ('Bebidas');
-insert into super_category values ('Refrigerantes');
+INSERT INTO super_category VALUES ('Sandes');
+INSERT INTO super_category VALUES ('Bebidas');
+INSERT INTO super_category VALUES ('Refrigerantes');
 
-insert into has_other values ('Sandes Baguete','Sandes');
-insert into has_other values ('Sandes Pão-forma','Sandes');
-insert into has_other values ('Sumos','Bebidas');
-insert into has_other values ('Batidos','Bebidas');
-insert into has_other values ('Refrigerantes sem gás','Refrigerantes');
-insert into has_other values ('Refrigerantes com gás','Refrigerantes');
-insert into has_other values ('Refrigerantes','Bebidas');
+INSERT INTO has_other VALUES ('Sandes Baguete','Sandes');
+INSERT INTO has_other VALUES ('Sandes Pão-forma','Sandes');
+INSERT INTO has_other VALUES ('Sumos','Bebidas');
+INSERT INTO has_other VALUES ('Batidos','Bebidas');
+INSERT INTO has_other VALUES ('Refrigerantes sem gás','Refrigerantes');
+INSERT INTO has_other VALUES ('Refrigerantes com gás','Refrigerantes');
+INSERT INTO has_other VALUES ('Refrigerantes','Bebidas');
 
-insert into product values (1,'Sandes Baguete', 'ATUM');
-insert into product values (2,'Sandes Baguete', 'FRANGO');
-insert into product values (3,'Sumos', 'COMPAL');
-insert into product values (4,'Sumos', 'NECTAR');
-insert into product values (5,'Refrigerantes sem gás', 'ICETEA PESSEGO');
-insert into product values (6,'Refrigerantes sem gás', 'ICETEA LIMÃO');
-insert into product values (7,'Refrigerantes com gás', 'COCA-COLA');
-insert into product values (8,'Refrigerantes com gás', 'SUMOL');
-insert into product values (9,'Refrigerantes com gás', '7-UP');
-insert into product values (10,'Fruta', 'MAÇA');
-insert into product values (11,'Fruta', 'BANANA');
-insert into product values (12,'Fruta', 'MARACUJÁ');
-insert into product values (13,'Fruta', 'PHYSALLIS');
+INSERT INTO product VALUES (1,'Sandes Baguete', 'ATUM');
+INSERT INTO product VALUES (2,'Sandes Baguete', 'FRANGO');
+INSERT INTO product VALUES (3,'Sumos', 'COMPAL');
+INSERT INTO product VALUES (4,'Sumos', 'NECTAR');
+INSERT INTO product VALUES (5,'Refrigerantes sem gás', 'ICETEA PESSEGO');
+INSERT INTO product VALUES (6,'Refrigerantes sem gás', 'ICETEA LIMÃO');
+INSERT INTO product VALUES (7,'Refrigerantes com gás', 'COCA-COLA');
+INSERT INTO product VALUES (8,'Refrigerantes com gás', 'SUMOL');
+INSERT INTO product VALUES (9,'Refrigerantes com gás', '7-UP');
+INSERT INTO product VALUES (10,'Fruta', 'MAÇA');
+INSERT INTO product VALUES (11,'Fruta', 'BANANA');
+INSERT INTO product VALUES (12,'Fruta', 'MARACUJÁ');
+INSERT INTO product VALUES (13,'Fruta', 'PHYSALLIS');
 
-insert into has_category values (1,'Sandes Baguete');
-insert into has_category values (1,'Sandes Pão-forma');
-insert into has_category values (2,'Sandes Baguete');
-insert into has_category values (2,'Sandes Pão-forma');
-insert into has_category values (3,'Sumos');
-insert into has_category values (4,'Sumos');
-insert into has_category values (5,'Refrigerantes sem gás');
-insert into has_category values (6,'Refrigerantes sem gás');
-insert into has_category values (7,'Refrigerantes com gás');
-insert into has_category values (8,'Refrigerantes com gás');
-insert into has_category values (9,'Refrigerantes com gás');
-insert into has_category values (10,'Fruta');
-insert into has_category values (11,'Fruta');
-insert into has_category values (12,'Fruta');
-insert into has_category values (13,'Fruta');
+INSERT INTO has_category VALUES (1,'Sandes Baguete');
+INSERT INTO has_category VALUES (1,'Sandes Pão-forma');
+INSERT INTO has_category VALUES (2,'Sandes Baguete');
+INSERT INTO has_category VALUES (2,'Sandes Pão-forma');
+INSERT INTO has_category VALUES (3,'Sumos');
+INSERT INTO has_category VALUES (4,'Sumos');
+INSERT INTO has_category VALUES (5,'Refrigerantes sem gás');
+INSERT INTO has_category VALUES (6,'Refrigerantes sem gás');
+INSERT INTO has_category VALUES (7,'Refrigerantes com gás');
+INSERT INTO has_category VALUES (8,'Refrigerantes com gás');
+INSERT INTO has_category VALUES (9,'Refrigerantes com gás');
+INSERT INTO has_category VALUES (10,'Fruta');
+INSERT INTO has_category VALUES (11,'Fruta');
+INSERT INTO has_category VALUES (12,'Fruta');
+INSERT INTO has_category VALUES (13,'Fruta');
 
-insert into ivm values (11111, 'MCLAREN');
-insert into ivm values (22222, 'ROLLS-ROYCE');
-insert into ivm values (33333, 'ROLLS-ROYCE');
-insert into ivm values (44444, 'ROLLS-ROYCE');
-insert into ivm values (44444, 'BENTLEY');
-insert into ivm values (55555, 'BENTLEY');
-insert into ivm values (66666, 'BENTLEY');
-insert into ivm values (77777, 'BENTLEY');
-insert into ivm values (88888, 'BENTLEY');
+INSERT INTO ivm VALUES (11111, 'MCLAREN');
+INSERT INTO ivm VALUES (22222, 'ROLLS-ROYCE');
+INSERT INTO ivm VALUES (33333, 'ROLLS-ROYCE');
+INSERT INTO ivm VALUES (44444, 'ROLLS-ROYCE');
+INSERT INTO ivm VALUES (44444, 'BENTLEY');
+INSERT INTO ivm VALUES (55555, 'BENTLEY');
+INSERT INTO ivm VALUES (66666, 'BENTLEY');
+INSERT INTO ivm VALUES (77777, 'BENTLEY');
+INSERT INTO ivm VALUES (88888, 'BENTLEY');
 
-insert into retail_point values ('GALP', 'Lisboa', 'Arieiro');
-insert into retail_point values ('BP', 'Porto', 'Baião');
+INSERT INTO retail_point VALUES ('GALP', 'Lisboa', 'Arieiro');
+INSERT INTO retail_point VALUES ('BP', 'Porto', 'Baião');
 
-insert into installed_at values (11111, 'MCLAREN', 'GALP');
-insert into installed_at values (22222, 'ROLLS-ROYCE', 'GALP');
-insert into installed_at values (33333, 'ROLLS-ROYCE', 'GALP');
-insert into installed_at values (44444, 'ROLLS-ROYCE', 'BP');
-insert into installed_at values (44444, 'BENTLEY', 'BP');
-insert into installed_at values (55555, 'BENTLEY', 'BP');
-insert into installed_at values (66666, 'BENTLEY', 'BP');
-insert into installed_at values (77777, 'BENTLEY', 'BP');
+INSERT INTO installed_at VALUES (11111, 'MCLAREN', 'GALP');
+INSERT INTO installed_at VALUES (22222, 'ROLLS-ROYCE', 'GALP');
+INSERT INTO installed_at VALUES (33333, 'ROLLS-ROYCE', 'GALP');
+INSERT INTO installed_at VALUES (44444, 'ROLLS-ROYCE', 'BP');
+INSERT INTO installed_at VALUES (44444, 'BENTLEY', 'BP');
+INSERT INTO installed_at VALUES (55555, 'BENTLEY', 'BP');
+INSERT INTO installed_at VALUES (66666, 'BENTLEY', 'BP');
+INSERT INTO installed_at VALUES (77777, 'BENTLEY', 'BP');
 
-insert into shelve values (1, 44444, 'ROLLS-ROYCE', 'Fruta', 50);
-insert into shelve values (2, 44444, 'ROLLS-ROYCE', 'Sandes Pão-forma', 50);
-insert into shelve values (1, 33333, 'ROLLS-ROYCE', 'Sandes Pão-forma', 50);
-insert into shelve values (2, 33333, 'ROLLS-ROYCE', 'Sumos', 50);
+INSERT INTO shelve VALUES (1, 44444, 'ROLLS-ROYCE', 'Fruta', 50);
+INSERT INTO shelve VALUES (2, 44444, 'ROLLS-ROYCE', 'Sandes Pão-forma', 50);
+INSERT INTO shelve VALUES (1, 33333, 'ROLLS-ROYCE', 'Sandes Pão-forma', 50);
+INSERT INTO shelve VALUES (2, 33333, 'ROLLS-ROYCE', 'Sumos', 50);
 
-insert into planogram values (13, 1, 44444, 'ROLLS-ROYCE', 2, 10, 'location');
-insert into planogram values (1, 2, 44444, 'ROLLS-ROYCE', 2, 10, 'location');
-insert into planogram values (1, 1, 33333, 'ROLLS-ROYCE', 1, 10, 'location');
-insert into planogram values (3, 2, 33333, 'ROLLS-ROYCE', 2, 10, 'location');
-insert into planogram values (4, 2, 33333, 'ROLLS-ROYCE', 2, 10, 'location');
+INSERT INTO planogram VALUES (13, 1, 44444, 'ROLLS-ROYCE', 2, 10, 'location');
+INSERT INTO planogram VALUES (1, 2, 44444, 'ROLLS-ROYCE', 2, 10, 'location');
+INSERT INTO planogram VALUES (1, 1, 33333, 'ROLLS-ROYCE', 1, 10, 'location');
+INSERT INTO planogram VALUES (3, 2, 33333, 'ROLLS-ROYCE', 2, 10, 'location');
+INSERT INTO planogram VALUES (4, 2, 33333, 'ROLLS-ROYCE', 2, 10, 'location');
 
-insert into retailer values (1, 'João Maria');
-insert into retailer values (2, 'José Manel');
+INSERT INTO retailer VALUES (1, 'João Maria');
+INSERT INTO retailer VALUES (2, 'José Manel');
 
-insert into responsible_for values ('Sandes Baguete', 1, 11111, 'MCLAREN');
-insert into responsible_for values ('Sandes Pão-forma', 1, 22222, 'ROLLS-ROYCE');
-insert into responsible_for values ('Sumos', 1, 33333,'ROLLS-ROYCE');
-insert into responsible_for values ('Batidos', 1, 44444,'ROLLS-ROYCE');
-insert into responsible_for values ('Refrigerantes sem gás', 1, 44444,'BENTLEY');
-insert into responsible_for values ('Refrigerantes com gás', 1, 55555,'BENTLEY');
-insert into responsible_for values ('Fruta', 1, 66666,'BENTLEY');
-insert into responsible_for values ('Refrigerantes sem gás', 2, 77777,'BENTLEY');
+INSERT INTO responsible_for VALUES ('Sandes Baguete', 1, 11111, 'MCLAREN');
+INSERT INTO responsible_for VALUES ('Sandes Pão-forma', 1, 22222, 'ROLLS-ROYCE');
+INSERT INTO responsible_for VALUES ('Sumos', 1, 33333,'ROLLS-ROYCE');
+INSERT INTO responsible_for VALUES ('Batidos', 1, 44444,'ROLLS-ROYCE');
+INSERT INTO responsible_for VALUES ('Refrigerantes sem gás', 1, 44444,'BENTLEY');
+INSERT INTO responsible_for VALUES ('Refrigerantes com gás', 1, 55555,'BENTLEY');
+INSERT INTO responsible_for VALUES ('Fruta', 1, 66666,'BENTLEY');
+INSERT INTO responsible_for VALUES ('Refrigerantes sem gás', 2, 77777,'BENTLEY');
 
-insert into replenishment_event values (13, 1, 44444, 'ROLLS-ROYCE', 10, 1, '08-Jan-1999');
-insert into replenishment_event values (1, 2, 44444, 'ROLLS-ROYCE', 9, 1, '08-Jan-1999');
-insert into replenishment_event values (1, 2, 44444, 'ROLLS-ROYCE', 9, 1, '10-Jan-1999');
-insert into replenishment_event values (1, 1, 33333, 'ROLLS-ROYCE', 8, 1, '08-Jan-1999');
-insert into replenishment_event values (3, 2, 33333, 'ROLLS-ROYCE', 10, 1, '08-Jan-1999');
-insert into replenishment_event values (3, 2, 33333, 'ROLLS-ROYCE', 9, 1, '09-Jan-1999');
-insert into replenishment_event values (3, 2, 33333, 'ROLLS-ROYCE', 10, 1, '10-Jan-1999');
-insert into replenishment_event values (4, 2, 33333, 'ROLLS-ROYCE', 7, 2, '08-Jan-1999');
+INSERT INTO replenishment_event VALUES (13, 1, 44444, 'ROLLS-ROYCE', 10, 1, '08-Jan-1999');
+INSERT INTO replenishment_event VALUES (1, 2, 44444, 'ROLLS-ROYCE', 9, 1, '08-Jan-1999');
+INSERT INTO replenishment_event VALUES (1, 2, 44444, 'ROLLS-ROYCE', 9, 1, '10-Jan-1999');
+INSERT INTO replenishment_event VALUES (1, 1, 33333, 'ROLLS-ROYCE', 8, 1, '08-Jan-1999');
+INSERT INTO replenishment_event VALUES (3, 2, 33333, 'ROLLS-ROYCE', 10, 1, '08-Jan-1999');
+INSERT INTO replenishment_event VALUES (3, 2, 33333, 'ROLLS-ROYCE', 9, 1, '09-Jan-1999');
+INSERT INTO replenishment_event VALUES (3, 2, 33333, 'ROLLS-ROYCE', 10, 1, '10-Jan-1999');
+INSERT INTO replenishment_event VALUES (4, 2, 33333, 'ROLLS-ROYCE', 7, 2, '08-Jan-1999');
 /*
     -----------------------------------------------------------------------------
     # PSM
@@ -339,23 +339,3 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trigger_delete_from_category
 BEFORE DELETE ON category
 FOR EACH ROW EXECUTE PROCEDURE trigger_delete_from_category();
-
-
--- TESTS: delete this before delivery
-
-/*  DO $$
-DECLARE total varchar(80)[] = (SELECT array_agg(account_number) FROM account WHERE balance<'600');
-DECLARE other varchar(80)[6];
-BEGIN
-    select array_agg(account_number) from account INTO other where account_number = ANY(total);
-    RAISE INFO 'Account %', other;
-END$$; */
-/*  DO $$
-DECLARE other varchar(80)[6];
-BEGIN
-    with total as(
-        select account_number FROM account WHERE balance<'600'
-    )
-    select array_agg(account_number) from account INTO other where account_number IN (SELECT * FROM total);
-    RAISE INFO 'Account %', other;
-END$$; */

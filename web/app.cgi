@@ -88,7 +88,7 @@ def inseir_categoria():
         dbConn = psycopg2.connect(DB_CONNECTION_STRING)
         cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         categoria = request.form["categoria"]
-        query = "insert into category values (%s);"
+        query = "INSERT INTO category VALUES (%s);"
         data = (categoria,)
         cursor.execute(query, data)
         return lista_categorias_edit()
@@ -164,7 +164,7 @@ def inseir_retalhista():
         cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         tin = request.form["tin"]
         nome =  request.form["nome"]
-        query = "insert into retailer values (%s, %s);"
+        query = "INSERT INTO retailer VALUES (%s, %s);"
         data = (tin, nome)
         cursor.execute(query, data)
         return query % data

@@ -217,4 +217,20 @@ def listar_ER():
         cursor.close()
         dbConn.close()
 
+@app.route("/escolhe_categoria")
+def escolhe_ivm():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        query = "SELECT * FROM super_category;"
+        cursor.execute(query)
+        return render_template("super_categoria.html", cursor=cursor, params=request.args)
+    except Exception as e:
+        return str(e)
+    finally:
+        cursor.close()
+        dbConn.close()
+
 CGIHandler().run(app)

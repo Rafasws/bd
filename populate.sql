@@ -233,13 +233,20 @@ $$
             FROM has_category
             GROUP BY ean
             HAVING COUNT(*)=1
+        ), shelves_to_be_deleted AS(
+            SELECT nro, serial_number, manufacturer
+            FROM shelve
+            WHERE category_name = OLD.category_name 
         )
         DELETE FROM replenishment_event
         WHERE ean IN(
             SELECT ean FROM products_to_be_deleted
-        );
+        ) 
+            OR (nro, serial_number, manufacturer) IN(
+                SELECT * FROM shelves_to_be_deleted
+            );
 
-        WITH products_to_be_deleted AS(
+         WITH products_to_be_deleted AS(
             SELECT ean 
             FROM product
             WHERE category_name = OLD.category_name
@@ -248,11 +255,18 @@ $$
             FROM has_category
             GROUP BY ean
             HAVING COUNT(*)=1
+        ), shelves_to_be_deleted AS(
+            SELECT nro, serial_number, manufacturer
+            FROM shelve
+            WHERE category_name = OLD.category_name 
         )   
         DELETE FROM planogram
-        WHERE ean IN(
+       WHERE ean IN(
             SELECT ean FROM products_to_be_deleted
-        );
+        ) 
+            OR (nro, serial_number, manufacturer) IN(
+                SELECT * FROM shelves_to_be_deleted
+            );
         
         DELETE FROM shelve 
         WHERE category_name = OLD.category_name;

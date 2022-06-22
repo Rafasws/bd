@@ -287,7 +287,7 @@ $$
         WHERE cat = OLD.category_name;
 
         DELETE FROM product
-        WHERE category = OLD.category_name;
+        WHERE cat = OLD.category_name;
         
         DELETE FROM super_category
         WHERE category = OLD.category_name;

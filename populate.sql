@@ -223,8 +223,8 @@ insert into responsible_for values ('Sandes Baguete', 1, 11111, 'MCLAREN');
 insert into responsible_for values ('Sandes Pão-forma', 1, 22222, 'ROLLS-ROYCE');
 insert into responsible_for values ('Sumos', 1, 33333,'ROLLS-ROYCE');
 insert into responsible_for values ('Batidos', 1, 44444,'ROLLS-ROYCE');
-insert into responsible_for values ('Refrigerantes sem gas', 2, 44444,'BENTLEY');
-insert into responsible_for values ('Refrigerantes com gas', 2, 55555,'BENTLEY');
+insert into responsible_for values ('Refrigerantes sem gás', 2, 44444,'BENTLEY');
+insert into responsible_for values ('Refrigerantes com gás', 2, 55555,'BENTLEY');
 
 insert into replenishment_event values (13, 1, 44444, 'ROLLS-ROYCE', 10, 1, '08-Jan-1999');
 insert into replenishment_event values (1, 2, 44444, 'ROLLS-ROYCE', 9, 1, '08-Jan-1999');

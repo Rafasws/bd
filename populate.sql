@@ -227,7 +227,7 @@ $$
         WITH products_to_be_deleted AS(
             SELECT ean 
             FROM product
-            WHERE category_name = OLD.category_name
+            WHERE cat = OLD.category_name
             INTERSECT
             SELECT ean
             FROM has_category
@@ -249,7 +249,7 @@ $$
          WITH products_to_be_deleted AS(
             SELECT ean 
             FROM product
-            WHERE category_name = OLD.category_name
+            WHERE cat = OLD.category_name
             INTERSECT
             SELECT ean
             FROM has_category

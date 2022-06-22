@@ -222,14 +222,12 @@ $$
     BEGIN
         
         DELETE FROM responsible_for
-        WHERE category_name = ANY(sub_cats)
-        OR category_name = OLD.category_name;
+        WHERE category_name = OLD.category_name;
         
         WITH products_to_be_deleted AS(
             SELECT ean 
             FROM product
-            WHERE category_name = ANY(sub_cats)
-            OR category_name = OLD.category_name
+            WHERE category_name = OLD.category_name
             INTERSECT
             SELECT ean
             FROM has_category
@@ -244,8 +242,7 @@ $$
         WITH products_to_be_deleted AS(
             SELECT ean 
             FROM product
-            WHERE category_name = ANY(sub_cats)
-            OR category_name = OLD.category_name
+            WHERE category_name = OLD.category_name
             INTERSECT
             SELECT ean
             FROM has_category
@@ -258,23 +255,32 @@ $$
         );
         
         DELETE FROM shelve 
-        WHERE category_name = ANY(sub_cats)
-        OR category_name = OLD.category_name;
+        WHERE category_name = OLD.category_name;
 
         DELETE FROM has_other
         WHERE super_category = OLD.category_name;
 
         DELETE FROM has_category 
-        WHERE category_name = ANY(sub_cats)
-        OR category_name = OLD.category_name; 
+        WHERE cat = OLD.category_name; 
         
-        UPDATE product SET cat=(SELECT)
+        UPDATE product 
+        SET cat = COALESCE(
+            (SELECT DISTINCT ON(ean) cat 
+            FROM has_category 
+            WHERE ean = product.ean),
+            product.cat
+        ) 
+        WHERE cat = OLD.category_name;
+
+        DELETE FROM product
+        WHERE category = OLD.category_name;
         
         DELETE FROM super_category
-        WHERE category = ANY(sub_cats);
+        WHERE category = OLD.category_name;
 
         DELETE FROM simple_category
-        WHERE category = ANY(sub_cats);
+        WHERE category = ANY(sub_cats)
+        OR category_name = OLD.category_name;
           
         DELETE FROM category
         WHERE category_name = ANY(sub_cats);

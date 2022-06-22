@@ -221,13 +221,59 @@ $$
             WHERE super_category = OLD.category_name);
     BEGIN
         
+        DELETE FROM responsible_for
+        WHERE category_name = ANY(sub_cats)
+        OR category_name = OLD.category_name;
+        
+        WITH products_to_be_deleted AS(
+            SELECT ean 
+            FROM product
+            WHERE category_name = ANY(sub_cats)
+            OR category_name = OLD.category_name
+            INTERSECT
+            SELECT ean
+            FROM has_category
+            GROUP BY ean
+            HAVING COUNT(*)=1
+        )
+        DELETE FROM replenishment_event
+        WHERE ean IN(
+            SELECT ean FROM products_to_be_deleted
+        );
+
+        WITH products_to_be_deleted AS(
+            SELECT ean 
+            FROM product
+            WHERE category_name = ANY(sub_cats)
+            OR category_name = OLD.category_name
+            INTERSECT
+            SELECT ean
+            FROM has_category
+            GROUP BY ean
+            HAVING COUNT(*)=1
+        )   
+        DELETE FROM planogram
+        WHERE ean IN(
+            SELECT ean FROM products_to_be_deleted
+        );
+        
+        DELETE FROM shelve 
+        WHERE category_name = ANY(sub_cats)
+        OR category_name = OLD.category_name;
+
+        DELETE FROM has_other
+        WHERE super_category = OLD.category_name;
+
+        DELETE FROM has_category 
+        WHERE category_name = ANY(sub_cats)
+        OR category_name = OLD.category_name; 
+        
+        UPDATE product SET cat=(SELECT)
+        
         DELETE FROM super_category
         WHERE category = ANY(sub_cats);
 
         DELETE FROM simple_category
-        WHERE category = ANY(sub_cats);
-
-        DELETE FROM has_other
         WHERE category = ANY(sub_cats);
           
         DELETE FROM category

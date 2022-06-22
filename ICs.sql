@@ -7,7 +7,7 @@ CREATE OR REPLACE FUNCTION is_autoreferenced()
 RETURNS TRIGGER AS
 $$
     BEGIN
-          IF NEW.category=NEW.super_category THEN
+          IF NEW.category = NEW.super_category THEN
                 RAISE EXCEPTION 'Autoreferencing category';
           END IF;
     RETURN NEW;
@@ -31,12 +31,12 @@ DECLARE max_units INTEGER;
 BEGIN
         SELECT units INTO max_units
         FROM planogram 
-        WHERE ean=NEW.ean
-             AND nro=NEW.nro 
-             AND serial_number=NEW.serial_number 
-             AND manufacturer=NEW.manufacturer;
+        WHERE ean = NEW.ean
+             AND nro = NEW.nro 
+             AND serial_number = NEW.serial_number 
+             AND manufacturer = NEW.manufacturer;
 
-        IF NEW.units  > max_units THEN 
+        IF NEW.units > max_units THEN 
             RAISE EXCEPTION 'Adding more units that specified in planogram'; 
         END IF;
 END;
@@ -60,17 +60,17 @@ $$
         IF NOT EXISTS  (
             SELECT cat
             FROM has_category
-            WHERE ean=NEW.ean
+            WHERE ean = NEW.ean
             INTERSECT
             SELECT category_name 
             FROM shelve 
-            WHERE nro=NEW.nro 
-                AND serial_number=NEW.serial_number
-                AND manufacturer=NEW.manufacturer
+            WHERE nro = NEW.nro 
+                AND serial_number = NEW.serial_number
+                AND manufacturer = NEW.manufacturer
         )
 
         THEN 
-            RAISE EXCEPTION 'Adding more units than specified in planogram'; 
+            RAISE EXCEPTION 'The shelve does not display any of the product''s categories'; 
         END IF;
     END
 $$ LANGUAGE plpgsql;

@@ -218,7 +218,7 @@ def listar_ER():
         dbConn.close()
 
 @app.route("/escolhe_categoria")
-def escolhe_ivm():
+def escolhe_categoria():
     dbConn = None
     cursor = None
     try:

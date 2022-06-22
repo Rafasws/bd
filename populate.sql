@@ -172,41 +172,68 @@ insert into product values (11,'Fruta', 'BANANA');
 insert into product values (12,'Fruta', 'MARACUJÁ');
 insert into product values (13,'Fruta', 'PHYSALLIS');
 
+insert into has_category values (1,'Sandes Baguete');
+insert into has_category values (1,'Sandes Pão-forma');
+insert into has_category values (2,'Sandes Baguete');
+insert into has_category values (2,'Sandes Pão-forma');
+insert into has_category values (3,'Sumos');
+insert into has_category values (4,'Sumos');
+insert into has_category values (5,'Refrigerantes sem gás');
+insert into has_category values (6,'Refrigerantes sem gás');
+insert into has_category values (7,'Refrigerantes com gás');
+insert into has_category values (8,'Refrigerantes com gás');
+insert into has_category values (9,'Refrigerantes com gás');
+insert into has_category values (10,'Fruta');
+insert into has_category values (11,'Fruta');
 insert into has_category values (12,'Fruta');
+insert into has_category values (13,'Fruta');
 
-insert into ivm values (55555,'ROLLS-ROYCE');
-insert into ivm values (12345,'ROLLS-ROYCE');
+insert into ivm values (11111, 'MCLAREN');
+insert into ivm values (22222, 'ROLLS-ROYCE');
+insert into ivm values (33333, 'ROLLS-ROYCE');
+insert into ivm values (44444, 'ROLLS-ROYCE');
+insert into ivm values (44444, 'BENTLEY');
+insert into ivm values (55555, 'BENTLEY');
 
-insert into retail_point values ('GALP','Lisboa', 'Arieiro');
-insert into retail_point values ('BP','Porto', 'Porto');
+insert into retail_point values ('GALP', 'Lisboa', 'Arieiro');
+insert into retail_point values ('BP', 'Porto', 'Baião');
 
-insert into installed_at values (55555,'ROLLS-ROYCE', 'GALP');
-insert into installed_at values (12345,'ROLLS-ROYCE', 'BP');
+insert into installed_at values (11111, 'MCLAREN', 'GALP');
+insert into installed_at values (22222, 'ROLLS-ROYCE', 'GALP');
+insert into installed_at values (33333, 'ROLLS-ROYCE', 'GALP');
+insert into installed_at values (44444, 'ROLLS-ROYCE', 'BP');
+insert into installed_at values (44444, 'BENTLEY', 'BP');
+insert into installed_at values (55555, 'BENTLEY', 'BP');
 
-insert into shelve values (1, 55555, 'ROLLS-ROYCE', 'Fruta', 50);
-insert into shelve values (2, 55555, 'ROLLS-ROYCE', 'Sandes', 50);
-insert into shelve values (1, 12345, 'ROLLS-ROYCE', 'Sandes', 50);
-insert into shelve values (2, 12345, 'ROLLS-ROYCE', 'Bebidas', 50);
+insert into shelve values (1, 44444, 'ROLLS-ROYCE', 'Fruta', 50);
+insert into shelve values (2, 44444, 'ROLLS-ROYCE', 'Sandes Pão-forma', 50);
+insert into shelve values (1, 33333, 'ROLLS-ROYCE', 'Sandes Pão-forma', 50);
+insert into shelve values (2, 33333, 'ROLLS-ROYCE', 'Sumos', 50);
 
-insert into planogram values (12, 1, 55555, 'ROLLS-ROYCE', 2, 10, 'location');
+insert into planogram values (13, 1, 44444, 'ROLLS-ROYCE', 2, 10, 'location');
+insert into planogram values (1, 2, 44444, 'ROLLS-ROYCE', 2, 10, 'location');
+insert into planogram values (1, 1, 33333, 'ROLLS-ROYCE', 1, 10, 'location');
+insert into planogram values (3, 2, 33333, 'ROLLS-ROYCE', 2, 10, 'location');
+insert into planogram values (4, 2, 33333, 'ROLLS-ROYCE', 2, 10, 'location');
 
 insert into retailer values (1, 'João Maria');
 insert into retailer values (2, 'José Manel');
 
-insert into responsible_for values ('Sandes Baguete', 1, 55555,'ROLLS-ROYCE');
-/*
-insert into responsible_for values ('Sandes Pão-forma', 1, 55555,'ROLLS-ROYCE');
-insert into responsible_for values ('Sumos', 1, 55555,'ROLLS-ROYCE');
-insert into responsible_for values ('Batidos', 1, 55555,'ROLLS-ROYCE');
-insert into responsible_for values ('Refrigerantes sem gas', 1, 55555,'ROLLS-ROYCE');
-insert into responsible_for values ('Refrigerantes com gas', 1, 55555,'ROLLS-ROYCE');
-insert into responsible_for values ('Frutas', 1, 55555,'ROLLS-ROYCE');
-insert into responsible_for values ('Sandes', 2, 12345,'ROLLS-ROYCE');
-insert into responsible_for values ('Bebidas', 2, 12345,'ROLLS-ROYCE');
-*/
+insert into responsible_for values ('Sandes Baguete', 1, 11111, 'MCLAREN');
+insert into responsible_for values ('Sandes Pão-forma', 1, 22222, 'ROLLS-ROYCE');
+insert into responsible_for values ('Sumos', 1, 33333,'ROLLS-ROYCE');
+insert into responsible_for values ('Batidos', 1, 44444,'ROLLS-ROYCE');
+insert into responsible_for values ('Refrigerantes sem gas', 2, 44444,'BENTLEY');
+insert into responsible_for values ('Refrigerantes com gas', 2, 55555,'BENTLEY');
 
-insert into replenishment_event values (12, 1 ,55555, 'ROLLS-ROYCE', 10, 1, '08-Jan-1999');
-
+insert into replenishment_event values (13, 1, 44444, 'ROLLS-ROYCE', 10, 1, '08-Jan-1999');
+insert into replenishment_event values (1, 2, 44444, 'ROLLS-ROYCE', 9, 1, '08-Jan-1999');
+insert into replenishment_event values (1, 2, 44444, 'ROLLS-ROYCE', 9, 1, '10-Jan-1999');
+insert into replenishment_event values (1, 1, 33333, 'ROLLS-ROYCE', 8, 1, '08-Jan-1999');
+insert into replenishment_event values (3, 2, 33333, 'ROLLS-ROYCE', 10, 1, '08-Jan-1999');
+insert into replenishment_event values (3, 2, 33333, 'ROLLS-ROYCE', 9, 1, '09-Jan-1999');
+insert into replenishment_event values (3, 2, 33333, 'ROLLS-ROYCE', 10, 1, '10-Jan-1999');
+insert into replenishment_event values (4, 2, 33333, 'ROLLS-ROYCE', 7, 2, '08-Jan-1999');
 /*
     -----------------------------------------------------------------------------
     # PSM

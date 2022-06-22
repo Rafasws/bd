@@ -222,59 +222,78 @@ $$
     BEGIN
         
         DELETE FROM responsible_for
-        WHERE category_name = ANY(sub_cats)
-        OR category_name = OLD.category_name;
+        WHERE category_name = OLD.category_name;
         
         WITH products_to_be_deleted AS(
             SELECT ean 
             FROM product
-            WHERE category_name = ANY(sub_cats)
-            OR category_name = OLD.category_name
+            WHERE cat = OLD.category_name
             INTERSECT
             SELECT ean
             FROM has_category
             GROUP BY ean
             HAVING COUNT(*)=1
+        ), shelves_to_be_deleted AS(
+            SELECT nro, serial_number, manufacturer
+            FROM shelve
+            WHERE category_name = OLD.category_name 
         )
         DELETE FROM replenishment_event
         WHERE ean IN(
             SELECT ean FROM products_to_be_deleted
-        );
+        ) 
+            OR (nro, serial_number, manufacturer) IN(
+                SELECT * FROM shelves_to_be_deleted
+            );
 
-        WITH products_to_be_deleted AS(
+         WITH products_to_be_deleted AS(
             SELECT ean 
             FROM product
-            WHERE category_name = ANY(sub_cats)
-            OR category_name = OLD.category_name
+            WHERE cat = OLD.category_name
             INTERSECT
             SELECT ean
             FROM has_category
             GROUP BY ean
             HAVING COUNT(*)=1
+        ), shelves_to_be_deleted AS(
+            SELECT nro, serial_number, manufacturer
+            FROM shelve
+            WHERE category_name = OLD.category_name 
         )   
         DELETE FROM planogram
-        WHERE ean IN(
+       WHERE ean IN(
             SELECT ean FROM products_to_be_deleted
-        );
+        ) 
+            OR (nro, serial_number, manufacturer) IN(
+                SELECT * FROM shelves_to_be_deleted
+            );
         
         DELETE FROM shelve 
-        WHERE category_name = ANY(sub_cats)
-        OR category_name = OLD.category_name;
+        WHERE category_name = OLD.category_name;
 
         DELETE FROM has_other
         WHERE super_category = OLD.category_name;
 
         DELETE FROM has_category 
-        WHERE category_name = ANY(sub_cats)
-        OR category_name = OLD.category_name; 
+        WHERE cat = OLD.category_name; 
         
-        UPDATE product SET cat=(SELECT)
+        UPDATE product 
+        SET cat = COALESCE(
+            (SELECT DISTINCT ON(ean) cat 
+            FROM has_category 
+            WHERE ean = product.ean),
+            product.cat
+        ) 
+        WHERE cat = OLD.category_name;
+
+        DELETE FROM product
+        WHERE cat = OLD.category_name;
         
         DELETE FROM super_category
-        WHERE category = ANY(sub_cats);
+        WHERE super_name = OLD.category_name;
 
         DELETE FROM simple_category
-        WHERE category = ANY(sub_cats);
+        WHERE simple_name = OLD.category_name;
           
         DELETE FROM category
         WHERE category_name = ANY(sub_cats);

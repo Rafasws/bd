@@ -122,21 +122,28 @@ def inseir_sub_categoria():
         #query = "INSERT INTO  has_other VALUES (%s, %s);"
         query =""" 
         BEGIN TRANSACTION;
+            DO $$
             DECLARE 
                 cat varchar(80) = %s;
                 super_cat varchar(80) = %s;
-            DO $$
             BEGIN
+                IF cat IN(
+                    SELECT category FROM has_other
+                )
+                THEN    
+                    RAISE EXCEPTION 'Category % already has super', cat;
+                END IF; 
                 INSERT INTO category VALUES (cat);
+                INSERT INTO simple_category VALUES (cat);   
                 IF super_cat IN(
-                    SELECT simple_name FROM simple_category;
+                    SELECT simple_name FROM simple_category
                 )
                 THEN 
                     DELETE FROM simple_category
                         WHERE simple_name = super_cat;
                     INSERT INTO super_category VALUES (super_cat);
                 END IF;
-                INSERT INTO has_other VALUES(category, super_cat);    
+                INSERT INTO has_other VALUES(cat, super_cat);    
             END;
             $$ LANGUAGE plpgsql; 
         COMMIT;"""

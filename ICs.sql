@@ -15,7 +15,7 @@ $$
 $$ LANGUAGE plpgsql; 
 
 CREATE TRIGGER is_autoreferenced
-BEFORE UPDATE OR INSERT ON category
+BEFORE UPDATE OR INSERT ON has_other
 FOR EACH ROW EXECUTE PROCEDURE is_autoreferenced();
 
 /*

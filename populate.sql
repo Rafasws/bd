@@ -339,24 +339,3 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trigger_delete_from_category
 BEFORE DELETE ON category
 FOR EACH ROW EXECUTE PROCEDURE trigger_delete_from_category();
-
-
-/* CREATE OR REPLACE FUNCTION trigger_add_from_has_other()
-RETURNS TRIGGER AS
-$$
-    BEGIN
-        INSERT INTO category VALUES (NEW.category);
-        IF NEW.super_category IN(
-            SELECT simple_name FROM simple_category;
-        )
-        THEN 
-            DELETE FROM simple_category
-            WHERE simple_name = NEW.super_category;
-            INSERT INTO super_category VALUES (NEW.super_category);
-        END IF;
-    END;
-$$ LANGUAGE plpgsql; 
-
-CREATE TRIGGER trigger_add_from_has_other
-BEFORE INSERT OR UPDATE ON has_other
-FOR EACH ROW EXECUTE PROCEDURE trigger_add_from_has_other(); */

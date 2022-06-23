@@ -361,4 +361,4 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER trigger_add_from_has_other
 BEFORE INSERT ON has_other
-FOR EACH STATEMENT EXECUTE PROCEDURE trigger_add_from_has_other();
+FOR EACH ROW EXECUTE PROCEDURE trigger_add_from_has_other();

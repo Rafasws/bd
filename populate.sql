@@ -339,22 +339,3 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trigger_delete_from_category
 BEFORE DELETE ON category
 FOR EACH ROW EXECUTE PROCEDURE trigger_delete_from_category();
-
-
-WITH RECURSIVE sub_categories AS (
-	SELECT
-		category
-	FROM
-		has_other
-	WHERE
-		super_category = 'Bebidas'
-	UNION
-		SELECT
-			e.category
-		FROM
-			has_other e
-		INNER JOIN sub_categories s ON s.category = e.super_category
-) SELECT
-	*
-FROM
-	sub_categories;

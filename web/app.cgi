@@ -199,7 +199,8 @@ def listar_ER():
 
     try:
         dbConn = psycopg2.connect(DB_CONNECTION_STRING)
-        cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cursor1 = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cursor2 = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         ivm = request.form["ivm"]
         ivm_list = ivm.split(" ")
         manuf = ivm_list[1]
@@ -216,12 +217,13 @@ def listar_ER():
         data = (serial, manuf)
         cursor1.execute(query1, data)
         cursor2.execute(query2, data)
-        return render_template("lista_er.html",cursor=(cursor1, cursor2), ivm=ivm)
+        return render_template("lista_er.html", cursor1=cursor1, cursor2=cursor2, ivm=ivm)
     except Exception as e:
         return render_template("error.html", error_message=e) 
     finally:
         dbConn.commit()
-        cursor.close()
+        cursor1.close()
+        cursor2.close()
         dbConn.close()
 
 @app.route("/escolhe_categoria")

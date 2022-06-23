@@ -344,21 +344,25 @@ FOR EACH ROW EXECUTE PROCEDURE trigger_delete_from_category();
 CREATE OR REPLACE FUNCTION trigger_add_from_has_other()
 RETURNS TRIGGER AS
 $$
+    DECLARE sub_category varchar(80);
+            super_category varchar(80);
     BEGIN
-        INSERT INTO category VALUES (NEW.category);
-        INSERT INTO simple_category VALUES (NEW.category);
+        sub_category = NEW.category
+        super_category = NEW.super_category
+        INSERT INTO category VALUES (sub_category);
+        INSERT INTO simple_category VALUES (sub_category);
         IF NOT EXISTS(
             SELECT * 
             FROM super_category
-            WHERE NEW.super_category = super_category.super_name)
+            WHERE super_category = super_category.super_name)
         THEN 
             DELETE FROM simple_category
-            WHERE simple_name = .super_category;
-            INSERT INTO super_category VALUES (NEW.super_category);
+            WHERE simple_name = super_category;
+            INSERT INTO super_category VALUES (super_category);
         END IF;
     END;
 $$ LANGUAGE plpgsql; 
 
 CREATE TRIGGER trigger_add_from_has_other
-BEFORE INSERT ON has_other
+BEFORE INSERT OR UPDATE ON has_other
 FOR EACH ROW EXECUTE PROCEDURE trigger_add_from_has_other();

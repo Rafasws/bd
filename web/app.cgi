@@ -194,7 +194,9 @@ def escolhe_ivm():
 @app.route("/selecionar_ivm", methods=["POST"])
 def listar_ER():
     dbConn = None
-    cursor = None
+    cursor2 = None
+    cursor1 = None
+
     try:
         dbConn = psycopg2.connect(DB_CONNECTION_STRING)
         cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -202,14 +204,19 @@ def listar_ER():
         ivm_list = ivm.split(" ")
         manuf = ivm_list[1]
         serial = ivm_list[0]
-        query = """SELECT cat, SUM(units)
+        query1 = """SELECT *
+                    FROM replenishment_event
+                    WHERE serial_number = %s AND manufacturer=%s
+                 """
+        query2 = """SELECT cat, SUM(units)
                     FROM replenishment_event NATURAL JOIN has_category
                     WHERE serial_number = %s AND manufacturer=%s
                     GROUP BY cat;              
                 """
         data = (serial, manuf)
-        cursor.execute(query, data)
-        return render_template("lista_er.html",cursor=cursor, ivm=ivm)
+        cursor1.execute(query1, data)
+        cursor2.execute(query2, data)
+        return render_template("lista_er.html",cursor=(cursor1, cursor2), ivm=ivm)
     except Exception as e:
         return render_template("error.html", error_message=e) 
     finally:
@@ -269,5 +276,5 @@ def listar_sub_categorias():
         cursor.close()
         dbConn.close()
 
-        
+
 CGIHandler().run(app)

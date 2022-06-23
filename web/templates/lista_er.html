@@ -10,6 +10,32 @@
     <table border="2px">
         <thead>
             <tr>
+                <th>EAN</th>
+                <th>NRO</th>
+                <th>Numero de série</th>
+                <th>Fabricante</th>
+                <th>Unidades</th>
+                <th>TIN</th>
+                <th>Instante</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in cursor %}
+                <tr>
+                    <td>{{ record[0] }}</td>
+                    <td>{{ record[1] }}</td>
+                    <td>{{ record[2] }}</td>
+                    <td>{{ record[3] }}</td>
+                    <td>{{ record[4] }}</td>
+                    <td>{{ record[5] }}</td>
+                    <td>{{ record[6] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <table border="2px">
+        <thead>
+            <tr>
                 <th>Categoria</th>
                 <th>Unidades Repostas</th>
             </tr>
@@ -23,6 +49,8 @@
             {% endfor %}
         </tbody>
     </table>
+
+
 {% else %}
     <p> Erro: não foi possível obter dados da base de dados!</p>
 {% endif %}

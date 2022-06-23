@@ -209,7 +209,7 @@ def listar_ER():
                 """
         data = (serial, manuf)
         cursor.execute(query, data)
-        return render_template("lista_er",cursor=cursor, ivm=ivm)
+        return render_template("lista_er.html",cursor=cursor, ivm=ivm)
     except Exception as e:
         return render_template("error.html", error_message=e) 
     finally:
@@ -233,4 +233,41 @@ def escolhe_categoria():
         cursor.close()
         dbConn.close()
 
+
+@app.route("/listar_sub_categorias", methods=["POST"])
+def listar_sub_categorias():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        super_categoria = request.form["super_categoria"]
+        query = """WITH RECURSIVE sub_categories AS (
+	                    SELECT
+		                    category
+	                    FROM
+		                    has_other
+	                    WHERE
+		                    super_category = %s
+	                    UNION
+		                    SELECT
+			                    e.category
+		                    FROM
+			                    has_other e
+		                    INNER JOIN sub_categories s ON s.category = e.super_category
+                        ) SELECT *
+                        FROM
+	                        sub_categories;              
+                """
+        data = (super_categoria,)
+        cursor.execute(query, data)
+        return render_template("lista_sub_categorias.html",cursor=cursor, super_categoria=super_categoria)
+    except Exception as e:
+        return render_template("error.html", error_message=e) 
+    finally:
+        dbConn.commit()
+        cursor.close()
+        dbConn.close()
+
+        
 CGIHandler().run(app)

@@ -6,8 +6,8 @@
 </head>
 <body>
         <h3>Escolher Super-Categoria</h3>
-        <form action="selecionar_categoria" method="post">
-            <select name="ivm" id="ivm">
+        <form action="listar_sub_categorias" method="post">
+            <select name="super_categoria" id="super_categoria">
                 {% for record in cursor %}
                     <option value="{{ record[0] }}">{{ record[0] }}</option>
                 {% endfor %}

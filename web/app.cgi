@@ -127,8 +127,8 @@ def inseir_sub_categoria():
                 super_cat varchar(80) = %s;
             BEGIN
                 IF cat IN(
-                    SELECT category FROM has_other
-                )
+                    SELECT category FROM has_other;
+                    )
                 THEN    
                     RAISE EXCEPTION 'Category %% already has super', cat;
                 ELSIF cat NOT IN(

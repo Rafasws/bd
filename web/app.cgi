@@ -132,9 +132,13 @@ def inseir_sub_categoria():
                 )
                 THEN    
                     RAISE EXCEPTION 'Category % already has super', cat;
-                END IF; 
-                INSERT INTO category VALUES (cat);
-                INSERT INTO simple_category VALUES (cat);   
+                ELSIF  cat NOT IN(
+                    SELECT category_name FROM category;
+                )
+                THEN 
+                    INSERT INTO category VALUES (cat);
+                    INSERT INTO simple_category VALUES (cat);    
+                END IF;   
                 IF super_cat IN(
                     SELECT simple_name FROM simple_category
                 )

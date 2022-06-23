@@ -132,7 +132,7 @@ def inseir_sub_categoria():
                 )
                 THEN    
                     RAISE EXCEPTION 'Category % already has super', cat;
-                ELSIF  cat NOT IN(
+                ELSIF cat NOT IN(
                     SELECT category_name FROM category;
                 )
                 THEN 

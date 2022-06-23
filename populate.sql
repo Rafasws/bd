@@ -347,18 +347,18 @@ $$
     DECLARE sub_category varchar(80);
             super_category varchar(80);
     BEGIN
-        sub_category = NEW.category
-        super_category = NEW.super_category
-        INSERT INTO category VALUES (sub_category);
-        INSERT INTO simple_category VALUES (sub_category);
+        new_sub_category = NEW.category;
+        new_super_category = NEW.super_category;
+        INSERT INTO category VALUES (new_sub_category);
+        INSERT INTO simple_category VALUES (new_sub_category);
         IF NOT EXISTS(
             SELECT * 
             FROM super_category
-            WHERE super_category = super_category.super_name)
+            WHERE new_super_category = super_category.super_name)
         THEN 
             DELETE FROM simple_category
-            WHERE simple_name = super_category;
-            INSERT INTO super_category VALUES (super_category);
+            WHERE simple_name = new_super_category;
+            INSERT INTO super_category VALUES (new_super_category);
         END IF;
     END;
 $$ LANGUAGE plpgsql; 

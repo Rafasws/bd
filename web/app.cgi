@@ -111,7 +111,7 @@ def Adicionar_sub_categoria():
         dbConn.close()
 
 @app.route("/inserir_sub_categoria", methods=["POST"])
-def inseir_sub_categoria():
+def inserir_sub_categoria():
     dbConn = None
     cursor = None
     try:
@@ -123,8 +123,8 @@ def inseir_sub_categoria():
         BEGIN TRANSACTION;
             DO $$
             DECLARE 
-                cat varchar(80) = 'Bife';
-                super_cat varchar(80) = 'Sandes Baguete';
+                cat varchar(80) = %s;
+                super_cat varchar(80) = %s;
             BEGIN
                 IF cat IN(
                     SELECT category FROM has_other

@@ -345,8 +345,8 @@ CREATE OR REPLACE FUNCTION trigger_add_from_has_other()
 RETURNS TRIGGER AS
 $$
     BEGIN
-        INSERT INTO category VALUES NEW.category;
-        INSERT INTO simple_category VALUES NEW.category;
+        INSERT INTO category VALUES (NEW.category);
+        INSERT INTO simple_category VALUES (NEW.category);
         IF NOT EXISTS(
             SELECT * 
             FROM super_category
@@ -354,7 +354,7 @@ $$
         THEN 
             DELETE FROM simple_category
             WHERE simple_name = .super_category;
-            INSERT INTO super_category VALUES NEW.super_category;
+            INSERT INTO super_category VALUES (NEW.super_category);
         END IF;
     END;
 $$ LANGUAGE plpgsql; 

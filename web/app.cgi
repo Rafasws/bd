@@ -122,7 +122,7 @@ def inseir_sub_categoria():
         query = """ INSERT INTO has_other VALUES (%s, %s);"""
         data = (categoria, super_categoria)
         cursor.execute(query, data)
-        return 
+        return query % data
     except Exception as e:
         return render_template("error.html", error_message=e) 
     finally:

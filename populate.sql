@@ -250,7 +250,7 @@ CREATE OR REPLACE FUNCTION trigger_delete_from_category()
 RETURNS TRIGGER AS
 $$
     DECLARE sub_cats varchar(80)[] = (
-            SELECT ARRAY_AGG(category) 
+            SELECT array_agg(category) 
             FROM has_other
             WHERE super_category = OLD.category_name);
     BEGIN
@@ -332,7 +332,7 @@ $$
         DELETE FROM category
         WHERE category_name = ANY(sub_cats);
 
-    
+    RETURN OLD; 
     END;
 $$ LANGUAGE plpgsql; 
 
@@ -360,6 +360,7 @@ $$
             WHERE simple_name = new_super_category;
             INSERT INTO super_category VALUES (new_super_category);
         END IF;
+    RETURN NEW;
     END;
 $$ LANGUAGE plpgsql; 
 

@@ -119,7 +119,6 @@ def inseir_sub_categoria():
         cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         categoria = request.form["categoria"]
         super_categoria = request.form["super_categoria"]
-        #query = "INSERT INTO  has_other VALUES (%s, %s);"
         query =""" 
         BEGIN TRANSACTION;
             DO $$
@@ -131,7 +130,7 @@ def inseir_sub_categoria():
                     SELECT category FROM has_other
                 )
                 THEN    
-                    RAISE EXCEPTION 'Category % already has super', cat;
+                    RAISE EXCEPTION 'Category %% already has super', cat;
                 ELSIF cat NOT IN(
                     SELECT category_name FROM category;
                 )
@@ -299,7 +298,7 @@ def escolhe_categoria():
         return render_template("super_categoria.html", cursor=cursor, params=request.args)
     except Exception as e:
         return render_template("error.html", error_message=e) 
-        
+
     finally:
 
         cursor.close()

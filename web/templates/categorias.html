@@ -10,6 +10,7 @@
         <thead>
             <tr>
                 <th>Nome</th>
+                <th>Adicionar Sub-categoria</th>
                 <th>Eliminar</th>
             </tr>
         </thead>
@@ -17,7 +18,8 @@
             {% for record in cursor %}
                 <tr>
                     <td>{{ record[0] }}</td>
-                    <td><a href="Eliminar_categoria?categoria={{ record[0] }}">Eliminar</a></td>
+                    <td><a href="Adicionar_sub_categoria?categoria={{ record[0] }}">ADD</a></td>
+                    <td><a href="Eliminar_categoria?categoria={{ record[0] }}">DEL</a></td>
                 </tr>
             {% endfor %}
             <tr>

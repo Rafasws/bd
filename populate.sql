@@ -250,7 +250,7 @@ CREATE OR REPLACE FUNCTION trigger_delete_from_category()
 RETURNS TRIGGER AS
 $$
     DECLARE sub_cats varchar(80)[] = (
-            SELECT array_agg(category) 
+            SELECT ARRAY_AGG(category) 
             FROM has_other
             WHERE super_category = OLD.category_name);
     BEGIN

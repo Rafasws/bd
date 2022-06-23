@@ -268,15 +268,19 @@ def escolhe_categoria():
         return render_template("super_categoria.html", cursor=cursor, params=request.args)
     except Exception as e:
         return render_template("error.html", error_message=e) 
+        
     finally:
+
         cursor.close()
         dbConn.close()
 
 
 @app.route("/listar_sub_categorias", methods=["POST"])
+
 def listar_sub_categorias():
     dbConn = None
     cursor = None
+
     try:
         dbConn = psycopg2.connect(DB_CONNECTION_STRING)
         cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)

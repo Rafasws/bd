@@ -123,20 +123,20 @@ def inseir_sub_categoria():
         query =""" 
         BEGIN TRANSACTION;
             DECLARE 
-                category varchar(80) = %s;
-                sup_category varchar(80) = %s;
+                cat varchar(80) = %s;
+                super_cat varchar(80) = %s;
             DO $$
             BEGIN
-                INSERT INTO category VALUES (category);
-                IF sup_category IN(
+                INSERT INTO category VALUES (cat);
+                IF super_cat IN(
                     SELECT simple_name FROM simple_category;
                 )
                 THEN 
                     DELETE FROM simple_category
-                        WHERE simple_name = sup_category;
-                    INSERT INTO super_category VALUES (sup_category);
+                        WHERE simple_name = super_cat;
+                    INSERT INTO super_category VALUES (super_cat);
                 END IF;
-                INSERT INTO has_other VALUES(category, sup_category);    
+                INSERT INTO has_other VALUES(category, super_cat);    
             END;
             $$ LANGUAGE plpgsql; 
         COMMIT;"""

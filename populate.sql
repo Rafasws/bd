@@ -341,7 +341,7 @@ BEFORE DELETE ON category
 FOR EACH ROW EXECUTE PROCEDURE trigger_delete_from_category();
 
 
-CREATE OR REPLACE FUNCTION trigger_add_from_has_other()
+/* CREATE OR REPLACE FUNCTION trigger_add_from_has_other()
 RETURNS TRIGGER AS
 $$
     BEGIN
@@ -359,4 +359,4 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER trigger_add_from_has_other
 BEFORE INSERT OR UPDATE ON has_other
-FOR EACH ROW EXECUTE PROCEDURE trigger_add_from_has_other();
+FOR EACH ROW EXECUTE PROCEDURE trigger_add_from_has_other(); */

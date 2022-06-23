@@ -119,7 +119,27 @@ def inseir_sub_categoria():
         cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         categoria = request.form["categoria"]
         super_categoria = request.form["super_categoria"]
-        query = "INSERT INTO  has_other VALUES (%s, %s);"
+        #query = "INSERT INTO  has_other VALUES (%s, %s);"
+        query =""" 
+        BEGIN TRANSACTION;
+            DECLARE 
+                category varchar(80) = %s;
+                sup_category varchar(80) = %s;
+            DO $$
+            BEGIN
+                INSERT INTO category VALUES (category);
+                IF sup_category IN(
+                    SELECT simple_name FROM simple_category;
+                )
+                THEN 
+                    DELETE FROM simple_category
+                        WHERE simple_name = sup_category;
+                    INSERT INTO super_category VALUES (sup_category);
+                END IF;
+                INSERT INTO has_other VALUES(category, sup_category);    
+            END;
+            $$ LANGUAGE plpgsql; 
+        COMMIT;"""
         data = (categoria, super_categoria)
         cursor.execute(query, data)
         return 

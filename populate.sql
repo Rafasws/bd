@@ -306,7 +306,8 @@ $$
         WHERE category_name = OLD.category_name;
 
         DELETE FROM has_other
-        WHERE super_category = OLD.category_name;
+        WHERE super_category = OLD.category_name
+        OR category = OLD.category_name;
 
         DELETE FROM has_category 
         WHERE cat = OLD.category_name; 
@@ -339,31 +340,3 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trigger_delete_from_category
 BEFORE DELETE ON category
 FOR EACH ROW EXECUTE PROCEDURE trigger_delete_from_category();
-
-
-CREATE OR REPLACE FUNCTION trigger_add_from_has_other()
-RETURNS TRIGGER AS
-$$
-    DECLARE new_sub_category varchar(80);
-            new_super_category varchar(80);
-    BEGIN
-        new_sub_category = NEW.category;
-        new_super_category = NEW.super_category;
-        INSERT INTO category VALUES (new_sub_category);
-        INSERT INTO simple_category VALUES (new_sub_category);
-        IF NOT EXISTS(
-            SELECT * 
-            FROM super_category
-            WHERE new_super_category = super_category.super_name)
-        THEN 
-            DELETE FROM simple_category
-            WHERE simple_name = new_super_category;
-            INSERT INTO super_category VALUES (new_super_category);
-        END IF;
-    RETURN NEW;
-    END;
-$$ LANGUAGE plpgsql; 
-
-CREATE TRIGGER trigger_add_from_has_other
-BEFORE INSERT OR UPDATE ON has_other
-FOR EACH ROW EXECUTE PROCEDURE trigger_add_from_has_other();

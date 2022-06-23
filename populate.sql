@@ -344,8 +344,8 @@ FOR EACH ROW EXECUTE PROCEDURE trigger_delete_from_category();
 CREATE OR REPLACE FUNCTION trigger_add_from_has_other()
 RETURNS TRIGGER AS
 $$
-    DECLARE sub_category varchar(80);
-            super_category varchar(80);
+    DECLARE new_sub_category varchar(80);
+            new_super_category varchar(80);
     BEGIN
         new_sub_category = NEW.category;
         new_super_category = NEW.super_category;

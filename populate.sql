@@ -332,10 +332,33 @@ $$
         DELETE FROM category
         WHERE category_name = ANY(sub_cats);
 
-    RETURN OLD; 
+    
     END;
 $$ LANGUAGE plpgsql; 
 
 CREATE TRIGGER trigger_delete_from_category
 BEFORE DELETE ON category
 FOR EACH ROW EXECUTE PROCEDURE trigger_delete_from_category();
+
+
+CREATE OR REPLACE FUNCTION trigger_add_from_has_other()
+RETURNS TRIGGER AS
+$$
+    BEGIN
+        INSERT INTO category VALUES (OLD.category);
+        INSERT INTO simple_category VALUES (OLD.category);
+        IF NOT EXISTS(
+            SELECT * 
+            FROM super_category
+            WHERE OLD.super_category = super_category.super_name)
+        THEN 
+            DELETE FROM simple_category
+            WHERE simple_name = NEW.super_category;
+            INSERT INTO super_category VALUES (OLD.super_category);
+        END IF;
+    END;
+$$ LANGUAGE plpgsql; 
+
+CREATE TRIGGER trigger_add_from_has_other
+BEFORE INSERT ON has_other
+FOR EACH STATEMENT EXECUTE PROCEDURE trigger_add_from_has_other();

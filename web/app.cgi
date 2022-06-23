@@ -98,7 +98,37 @@ def inseir_categoria():
         dbConn.commit()
         cursor.close()
         dbConn.close()
+        
+@app.route("/Adicionar_sub_categoria")
+def Adicionar_sub_categoria():
+    dbConn = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        return render_template("inserir_sub_categoria.html", params=request.args)
+    except Exception as e:
+        return render_template("error.html", error_message=e) 
+    finally:
+        dbConn.close()
 
+@app.route("/inserir_sub_categoria", methods=["POST"])
+def inseir_sub_categoria():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        categoria = request.form["categoria"]
+        super_categoria = request.form["super_categoria"]
+        query = "INSERT INTO  has_other VALUES (%s, %s);"
+        data = (categoria, super_categoria)
+        cursor.execute(query, data)
+        return 
+    except Exception as e:
+        return render_template("error.html", error_message=e) 
+    finally:
+        dbConn.commit()
+        cursor.close()
+        dbConn.close()
 
 @app.route("/retalhistas")
 def lista_retalhistas_edit():

@@ -11,7 +11,12 @@ WHERE
     year >= 1999 AND quarter >= 1
     AND
     year <= 2000 AND quarter <= 3
-GROUP BY CUBE(day_of_week, council);
+GROUP BY 
+    GROUPING SETS(
+        (day_of_week), 
+        (council),
+        ()
+    );
 
 /*
     ------------------------------------------------------------------------------
@@ -24,5 +29,9 @@ SELECT council, cat, day_of_week, SUM(units) AS sales
 FROM Sales NATURAL JOIN product
 WHERE 
     district = 'Lisboa'
-GROUP BY CUBE(council, cat, day_of_week);
+GROUP BY 
+    GROUPING SETS(
+        (council, cat, day_of_week),
+        ()
+    );
 

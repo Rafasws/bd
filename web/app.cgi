@@ -130,14 +130,15 @@ def inserir_sub_categoria():
                     SELECT category FROM has_other
                 )
                 THEN    
-                    RAISE EXCEPTION 'Category already has super';
-                ELSIF cat NOT IN(
+                    RAISE EXCEPTION 'Category already has super';         
+                END IF;  
+                IF cat NOT IN(
                     SELECT category_name FROM category
                 )
                 THEN 
                     INSERT INTO category VALUES (cat);
-                    INSERT INTO simple_category VALUES (cat);    
-                END IF;   
+                    INSERT INTO simple_category VALUES (cat);  
+                END IF;     
                 IF super_cat IN(
                     SELECT simple_name FROM simple_category
                 )
@@ -297,8 +298,7 @@ def escolhe_categoria():
         cursor.execute(query)
         return render_template("super_categoria.html", cursor=cursor, params=request.args)
     except Exception as e:
-        return render_template("error.html", error_message=e) 
-        
+        return render_template("error.html", error_message=e)      
     finally:
 
         cursor.close()

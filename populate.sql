@@ -171,6 +171,7 @@ INSERT INTO product VALUES (10,'Fruta', 'MAÇA');
 INSERT INTO product VALUES (11,'Fruta', 'BANANA');
 INSERT INTO product VALUES (12,'Fruta', 'MARACUJÁ');
 INSERT INTO product VALUES (13,'Fruta', 'PHYSALLIS');
+INSERT INTO product VALUES (14,'Sandes Pão-forma', 'FLAMMENWERFER');
 
 INSERT INTO has_category VALUES (1,'Sandes Baguete');
 INSERT INTO has_category VALUES (1,'Sandes Pão-forma');

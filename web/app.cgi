@@ -21,7 +21,7 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def list_accounts():
+def home():
     try:
         return render_template("index.html")
     except Exception as e:

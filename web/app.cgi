@@ -105,7 +105,7 @@ def inseir_categoria():
         dbConn.close()
         
 @app.route("/Adicionar_sub_categoria")
-def Adicionar_sub_categoria():
+def adicionar_sub_categoria():
     dbConn = None
     try:
         dbConn = psycopg2.connect(DB_CONNECTION_STRING)
@@ -222,7 +222,7 @@ def novo_retalhista():
 
 
 @app.route("/insert_retalhista", methods=["POST"])
-def inseir_retalhista():
+def inserir_retalhista():
     dbConn = None
     cursor = None
     try:
@@ -242,7 +242,7 @@ def inseir_retalhista():
         dbConn.close()
 
 @app.route("/escolhe_ivm")
-def escolhe_ivm():
+def escolher_ivm():
     dbConn = None
     cursor = None
     try:
@@ -293,7 +293,7 @@ def listar_ER():
         dbConn.close()
 
 @app.route("/escolhe_categoria")
-def escolhe_categoria():
+def escolher_categoria():
     dbConn = None
     cursor = None
     try:
@@ -311,7 +311,6 @@ def escolhe_categoria():
 
 
 @app.route("/listar_sub_categorias", methods=["POST"])
-
 def listar_sub_categorias():
     dbConn = None
     cursor = None

@@ -5,7 +5,7 @@
     <title>Adicionar Categoria</title>
 </head>
 <body>
-        <h3>Adicionar Sub-categoria a {{ params.get("categoria") }}</h3>
+        <h3>Adicionar sub-categoria a {{ params.get("categoria") }}</h3>
     <form action="inserir_sub_categoria" method="post">
         <p><input type="hidden" name="super_categoria" value="{{params.get('categoria') }}"/></p>
         <p>Nova Categoria: <input type="text" name="categoria"/></p>

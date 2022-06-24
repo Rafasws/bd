@@ -269,6 +269,20 @@ $$
             WHERE super_category = OLD.category_name);
     BEGIN
         
+        WITH super_becoming_simple AS(
+            DELETE FROM super_category 
+            WHERE super_name IN(
+                SELECT super_category
+                FROM has_other
+                WHERE category = OLD.category_name
+                GROUP BY super_category
+                HAVING COUNT(*) = 1
+            )
+            RETURNING *
+        )
+        INSERT INTO simple_category
+        SELECT * FROM super_becoming_simple; 
+
         DELETE FROM responsible_for
         WHERE category_name = OLD.category_name;
         
@@ -342,8 +356,8 @@ $$
         WHERE super_name = OLD.category_name;
 
         DELETE FROM simple_category
-        WHERE simple_name = OLD.category_name;
-          
+        WHERE simple_name = OLD.category_name;     
+             
         DELETE FROM category
         WHERE category_name = ANY(sub_cats);
 

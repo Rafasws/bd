@@ -8,9 +8,11 @@
 SELECT day_of_week, council, SUM(units) AS sales
 FROM Sales
 WHERE 
-    year >= 1999 AND quarter >= 1
-    AND
-    year <= 2000 AND quarter <= 3
+    TO_TIMESTAMP(year||'-'||month||'-'||day_of_month, 'YYYY-MM-DD') 
+        >= TIMESTAMP '1999-01-01 00:00:00' 
+    AND 
+    TO_TIMESTAMP(year||'-'||month||'-'||day_of_month, 'YYYY-MM-DD') 
+        < TIMESTAMP '1999-06-24 00:00:00' 
 GROUP BY 
     GROUPING SETS(
         (day_of_week), 

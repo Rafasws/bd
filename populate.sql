@@ -228,7 +228,7 @@ INSERT INTO planogram VALUES (8, 2, 12345, 'MCLAREN', 1, 10, 'location');
 INSERT INTO planogram VALUES (9, 2, 12345, 'MCLAREN', 1, 10, 'location');
 INSERT INTO planogram VALUES (13, 1, 44444, 'ROLLS-ROYCE', 2, 10, 'location');
 INSERT INTO planogram VALUES (1, 2, 44444, 'ROLLS-ROYCE', 2, 10, 'location');
-INSERT INTO planogram VALUES (1, 1, 33333, 'ROLLS-ROYCE', 1, 10, 'location');
+INSERT INTO planogram VALUES (14, 1, 33333, 'ROLLS-ROYCE', 1, 10, 'location');
 INSERT INTO planogram VALUES (3, 2, 33333, 'ROLLS-ROYCE', 2, 10, 'location');
 INSERT INTO planogram VALUES (4, 2, 33333, 'ROLLS-ROYCE', 2, 10, 'location');
 
@@ -248,7 +248,7 @@ INSERT INTO responsible_for VALUES ('Refrigerantes com gás', 2, 12345, 'MCLAREN
 INSERT INTO replenishment_event VALUES (13, 1, 44444, 'ROLLS-ROYCE', 10, 1, '08-Jan-1999');
 INSERT INTO replenishment_event VALUES (1, 2, 44444, 'ROLLS-ROYCE', 9, 1, '08-Jan-1999');
 INSERT INTO replenishment_event VALUES (1, 2, 44444, 'ROLLS-ROYCE', 9, 1, '10-Jan-1999');
-INSERT INTO replenishment_event VALUES (1, 1, 33333, 'ROLLS-ROYCE', 8, 1, '08-Jan-1999');
+INSERT INTO replenishment_event VALUES (14, 1, 33333, 'ROLLS-ROYCE', 8, 1, '08-Jan-1999');
 INSERT INTO replenishment_event VALUES (3, 2, 33333, 'ROLLS-ROYCE', 10, 1, '08-Jan-1999');
 INSERT INTO replenishment_event VALUES (3, 2, 33333, 'ROLLS-ROYCE', 9, 1, '09-Jan-1999');
 INSERT INTO replenishment_event VALUES (3, 2, 33333, 'ROLLS-ROYCE', 10, 1, '10-Jan-1999');

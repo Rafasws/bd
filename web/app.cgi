@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from wsgiref.handlers import CGIHandler
-from flask import Flask
+from flask import Flask, redirect
 from flask import render_template, request
 import psycopg2
 import psycopg2.extras
@@ -21,7 +21,7 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def list_accounts():
+def home():
     try:
         return render_template("index.html")
     except Exception as e:
@@ -62,7 +62,7 @@ def eliminar_categoria():
         query = "DELETE FROM category WHERE category_name = %s;"
         data = (categoria,)
         cursor.execute(query, data)
-        return query % categoria
+        return redirect("/ist197343/app.cgi/")
     except Exception as e:
         return render_template("error.html", error_message=e) 
     finally:
@@ -158,7 +158,7 @@ def inserir_sub_categoria():
         COMMIT;"""
         data = (categoria, super_categoria)
         cursor.execute(query, data)
-        return query % data
+        return redirect("/ist197343/app.cgi/")
     except Exception as e:
         return render_template("error.html", error_message=e) 
     finally:
@@ -205,7 +205,7 @@ def eliminar_retalhista():
                     COMMIT;"""
         data = (retalhista, retalhista, retalhista)
         cursor.execute(query, data)
-        return query % (retalhista, retalhista, retalhista)
+        return redirect("/ist197343/app.cgi/")
     except Exception as e:
         return render_template("error.html", error_message=e) 
     finally:
@@ -233,7 +233,7 @@ def inserir_retalhista():
         query = "INSERT INTO retailer VALUES (%s, %s);"
         data = (tin, nome)
         cursor.execute(query, data)
-        return query % data
+        return redirect("/ist197343/app.cgi/")
     except Exception as e:
         return render_template("error.html", error_message=e) 
     finally:

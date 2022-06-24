@@ -88,8 +88,13 @@ def inseir_categoria():
         dbConn = psycopg2.connect(DB_CONNECTION_STRING)
         cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         categoria = request.form["categoria"]
-        query = "INSERT INTO category VALUES (%s);"
-        data = (categoria,)
+        query = """ 
+                BEGIN TRANSACTION;
+                    INSERT INTO category VALUES (%s);
+                    INSERT INTO simple_category VALUES (%s);
+                COMMIT;    
+                """
+        data = (categoria, categoria)
         cursor.execute(query, data)
         return lista_categorias_edit()
     except Exception as e:

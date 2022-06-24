@@ -188,6 +188,7 @@ INSERT INTO has_category VALUES (10,'Fruta');
 INSERT INTO has_category VALUES (11,'Fruta');
 INSERT INTO has_category VALUES (12,'Fruta');
 INSERT INTO has_category VALUES (13,'Fruta');
+INSERT INTO has_category VALUES (14,'Sandes Pão-forma');
 
 INSERT INTO ivm VALUES (12345, 'MCLAREN');
 INSERT INTO ivm VALUES (11111, 'MCLAREN');

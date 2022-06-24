@@ -188,6 +188,7 @@ INSERT INTO has_category VALUES (11,'Fruta');
 INSERT INTO has_category VALUES (12,'Fruta');
 INSERT INTO has_category VALUES (13,'Fruta');
 
+INSERT INTO ivm VALUES (12345, 'MCLAREN');
 INSERT INTO ivm VALUES (11111, 'MCLAREN');
 INSERT INTO ivm VALUES (22222, 'ROLLS-ROYCE');
 INSERT INTO ivm VALUES (33333, 'ROLLS-ROYCE');
@@ -198,9 +199,11 @@ INSERT INTO ivm VALUES (66666, 'BENTLEY');
 INSERT INTO ivm VALUES (77777, 'BENTLEY');
 INSERT INTO ivm VALUES (88888, 'BENTLEY');
 
-INSERT INTO retail_point VALUES ('GALP', 'Lisboa', 'Arieiro');
+INSERT INTO retail_point VALUES ('GALP', 'Lisboa', 'Barreiro');
+INSERT INTO retail_point VALUES ('PRIO', 'Lisboa', 'Moita');
 INSERT INTO retail_point VALUES ('BP', 'Porto', 'Baião');
 
+INSERT INTO installed_at VALUES (12345, 'MCLAREN', 'PRIO');
 INSERT INTO installed_at VALUES (11111, 'MCLAREN', 'GALP');
 INSERT INTO installed_at VALUES (22222, 'ROLLS-ROYCE', 'GALP');
 INSERT INTO installed_at VALUES (33333, 'ROLLS-ROYCE', 'GALP');
@@ -210,11 +213,17 @@ INSERT INTO installed_at VALUES (55555, 'BENTLEY', 'BP');
 INSERT INTO installed_at VALUES (66666, 'BENTLEY', 'BP');
 INSERT INTO installed_at VALUES (77777, 'BENTLEY', 'BP');
 
+INSERT INTO shelve VALUES (1, 12345, 'MCLAREN', 'Refrigerantes com gás', 50);
+INSERT INTO shelve VALUES (2, 12345, 'MCLAREN', 'Refrigerantes com gás', 50);
+INSERT INTO shelve VALUES (3, 12345, 'MCLAREN', 'Refrigerantes com gás', 50);
 INSERT INTO shelve VALUES (1, 44444, 'ROLLS-ROYCE', 'Fruta', 50);
 INSERT INTO shelve VALUES (2, 44444, 'ROLLS-ROYCE', 'Sandes Pão-forma', 50);
 INSERT INTO shelve VALUES (1, 33333, 'ROLLS-ROYCE', 'Sandes Pão-forma', 50);
 INSERT INTO shelve VALUES (2, 33333, 'ROLLS-ROYCE', 'Sumos', 50);
 
+INSERT INTO planogram VALUES (7, 2, 12345, 'MCLAREN', 1, 10, 'location');
+INSERT INTO planogram VALUES (8, 2, 12345, 'MCLAREN', 1, 10, 'location');
+INSERT INTO planogram VALUES (9, 2, 12345, 'MCLAREN', 1, 10, 'location');
 INSERT INTO planogram VALUES (13, 1, 44444, 'ROLLS-ROYCE', 2, 10, 'location');
 INSERT INTO planogram VALUES (1, 2, 44444, 'ROLLS-ROYCE', 2, 10, 'location');
 INSERT INTO planogram VALUES (1, 1, 33333, 'ROLLS-ROYCE', 1, 10, 'location');
@@ -232,6 +241,7 @@ INSERT INTO responsible_for VALUES ('Refrigerantes sem gás', 1, 44444,'BENTLEY'
 INSERT INTO responsible_for VALUES ('Refrigerantes com gás', 1, 55555,'BENTLEY');
 INSERT INTO responsible_for VALUES ('Fruta', 1, 66666,'BENTLEY');
 INSERT INTO responsible_for VALUES ('Refrigerantes sem gás', 2, 77777,'BENTLEY');
+INSERT INTO responsible_for VALUES ('Refrigerantes com gás', 2, 12345, 'MCLAREN');
 
 INSERT INTO replenishment_event VALUES (13, 1, 44444, 'ROLLS-ROYCE', 10, 1, '08-Jan-1999');
 INSERT INTO replenishment_event VALUES (1, 2, 44444, 'ROLLS-ROYCE', 9, 1, '08-Jan-1999');
@@ -241,6 +251,10 @@ INSERT INTO replenishment_event VALUES (3, 2, 33333, 'ROLLS-ROYCE', 10, 1, '08-J
 INSERT INTO replenishment_event VALUES (3, 2, 33333, 'ROLLS-ROYCE', 9, 1, '09-Jan-1999');
 INSERT INTO replenishment_event VALUES (3, 2, 33333, 'ROLLS-ROYCE', 10, 1, '10-Jan-1999');
 INSERT INTO replenishment_event VALUES (4, 2, 33333, 'ROLLS-ROYCE', 7, 2, '08-Jan-1999');
+INSERT INTO replenishment_event VALUES (7, 2, 12345, 'MCLAREN', 10, 1,'11-Jan-1999');
+INSERT INTO replenishment_event VALUES (8, 2, 12345, 'MCLAREN', 10, 2, '11-Feb-1999');
+INSERT INTO replenishment_event VALUES (9, 2, 12345, 'MCLAREN', 10, 2, '11-Dec-1999');
+INSERT INTO replenishment_event VALUES (9, 2, 12345, 'MCLAREN', 10, 2, '01-Jan-2000');
 /*
     -----------------------------------------------------------------------------
     # PSM
